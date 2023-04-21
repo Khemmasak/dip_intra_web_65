@@ -38,9 +38,9 @@ if ($org_page[0]["c_show_org_chk"] == "Y" && empty($c_org)) {
     <button class="openbtn" onclick="openNav()"><?= ($lang == 'EN' ? "Menu" : "เมนู")  ?> <i class="fas fa-bars"></i></button>
     <div class="container-fluid header--bg text-center ">
         <div class="container py-4">
-            <h4 class="setfont">
+            <!-- <h4 class="setfont">
                 ข่าวทั้งหมด
-            </h4>
+            </h4> -->
             <small class="article--topic">
                 <!-- <?php //if ($lang == "EN") { 
                         ?>
