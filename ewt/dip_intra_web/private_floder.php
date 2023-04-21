@@ -20,8 +20,10 @@ $s_nid_array = array();
 //     $wh = " AND n_id IN ($s_nid)";
 // }
 
-$_sql = "SELECT a.*, b.fav_id FROM " . E_DB_NAME . ".article_list a
+
+$_sql = "SELECT a.*, b.fav_id,c.* FROM " . E_DB_NAME . ".article_list a
     INNER JOIN " . E_DB_NAME . ".article_favorite_log b ON (a.n_id = b.n_id) 
+    INNER JOIN " . E_DB_NAME . ".article_group c ON (a.c_id = c.c_id)
     WHERE a.n_approve = 'Y' 
     AND b.fav_userid = {$_SESSION['EWT_MID']}
     ORDER BY a.n_date DESC, a.n_timestamp DESC 
@@ -33,6 +35,7 @@ $a_data = db::getFetchAll($_sql);
 //นับจำนวนข่าวทั้งหมด
 $_sql_all = "SELECT a.n_id FROM " . E_DB_NAME . ".article_list a
 INNER JOIN " . E_DB_NAME . ".article_favorite_log b ON (a.n_id = b.n_id) 
+INNER JOIN " . E_DB_NAME . ".article_group c ON (a.c_id = c.c_id)
 WHERE a.n_approve = 'Y'
 AND b.fav_userid = {$_SESSION['EWT_MID']}";
 
@@ -146,20 +149,20 @@ $total_page = ceil($a_row_all / $per_page);
                     </div>
                     <div class="col-lg-9 col-md-8 col-sm-9 col-8 px-0">
                         <div class=" row">
-                            <!--
+                            
                             <div class="col-lg-7 col-md-6 col-sm-7 col-6">
                                 <div class="tag-bg-<?php echo tagBg($key); ?>">
-                                    <?php echo $value["c_name"]; ?>
+                                    <?php echo $val["c_name"]; ?>
                                 </div>
                             </div>
-                            -->
+                          
                             <div class="col-lg-5 col-md-6 col-sm-5 col-6 red-txt mb-1">
                                 <a href="#" class="btn_delete_purple font13px" onclick="deleteItem(<?php echo $val['fav_id']; ?>);"> <i class="fa fa-trash" aria-hidden="true"></i> <span class="font13px">หยิบออก</span> </a>
                             </div>
                         </div>
 
                         <a href="<?php echo ($val['news_use'] == 1 ? $val['link_html'] : "news_view.php?n_id=" . $val['n_id'] . " "); ?>" class="txt-header-news mt-1">
-                            <?php echo $val["n_topic"]; ?>
+                        <?php echo mb_strimwidth($val["n_topic"], 0, 50, '...'); ?>
                         </a>
                         <div class="row">
                             <div class="col-lg-7 col-md-7 col-sm-6 col-6 pr-0  mt-2">
