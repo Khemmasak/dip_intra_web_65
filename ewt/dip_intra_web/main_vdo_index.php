@@ -31,7 +31,7 @@ $vdo_list = vdo::getVdoList(null, "1", null)["dataAll"];
                 <div class="shadow-sm  mt-2 mb-2 bg-whtie rounded" style="height: 400px;">
                     <div class="row">
                         <div class="col-xl-12">
-                            <div class="embed-responsive embed-responsive-4by3">
+                            <div class="embed-responsive embed-responsive-16by9">
                                 <?php
                                 if ($value['vdo_filename'] != "") {
                                     $type = "mp4";
