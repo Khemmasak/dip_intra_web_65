@@ -99,6 +99,9 @@
         <!-- <a href="assets/download/PRD_INTRA_64_Manual_ADMIN.pdf" class="forgot" target="_blank"> คู่มือ Admin | </a>
         <a href="assets/download/PRD_INTRA_64_Manual_User.pdf" class="forgot" target="_blank"> คู่มือ User </a> -->
       </div>
+      <div class="diprom-fullname text-center mt-2 mb-0">
+      Version 1.0 <!-- Update 21/04/2566 -->
+      </div>
     </form>
   </div>
 
