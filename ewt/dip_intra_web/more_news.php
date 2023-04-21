@@ -49,7 +49,8 @@ if ($org_page[0]["c_show_org_chk"] == "Y" && empty($c_org)) {
                         <img src="assets/img/rssfeed.png" title="rssfeed" alt="rssfeed" class="max-w-30px dis-inline">
                     </a>
                 <?php } ?>
-                <?php echo $article_group_first["c_name"]; ?>
+                <?php // echo $article_group_first["c_name"]; ?>
+                ข่าวสาร
             </h3>
             <small class="article_nvt">
                 <a href="index.php" title="หน้าหลัก" class="article_nvt">หน้าหลัก </a>
