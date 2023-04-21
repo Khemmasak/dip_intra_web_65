@@ -601,6 +601,9 @@ $news_tag_list_article_count = count($news_tag_list_article);
               </div>
 
 
+              <?php 
+                if ($news_list_detail['ad_pic_b'] !=  ''|| $_itemDetail['ad_pic_s'] != ""  && $news_list_detail['at_type_row'] != "11"){
+                ?>
               <button class="carousel-control-prev" type="button" data-target="#carousel-example" data-slide="prev">
                 <i class="fa fa-chevron-left icon_left" aria-hidden="true" data-target="#carousel-example"></i>
               </button>
@@ -608,6 +611,9 @@ $news_tag_list_article_count = count($news_tag_list_article);
               <button class="carousel-control-next" type="button" data-target="#carousel-example" data-slide="next">
                 <i class="fa fa-chevron-right icon_rigth" aria-hidden="true"></i>
               </button>
+
+              <?php }?>
+
             </div>
           </div>
         <?php } ?>
