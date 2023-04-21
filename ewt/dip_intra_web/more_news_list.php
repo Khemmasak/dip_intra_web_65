@@ -1,6 +1,5 @@
 <?php include 'comtop.php'; ?>
 <?php include 'header.php'; ?>
-<?php include('org_menu.php'); ?>
 <!-- <style>
     .pagina_active{
         background-color: #fb6f92;
@@ -17,11 +16,10 @@ $article_check_search = article::getCheckSearch($c_id);
 $article_check_group = article::getCheckGroup($c_id);
 $article_sub_group = article::getArticleSubGroup($c_id);
 $article_sub_group_list = article::getArticleSubGroupList($c_id);
-$article_limit = article::getArticleLimit($start, $per_page, $c_id, $s_search, $n_date_start, $n_date_end, $org_id);
+$article_limit = article::getArticleLimit($start, $per_page, $c_id, $s_search, $n_date_start, $n_date_end);
 $article_count = article::getCountArticleSubGroup($c_id);
 $total_page_more_news = ceil($article_limit["countAll"] / $per_page);
-$org_name = user::orgName();
-$emp_type = user::empType();
+
 $lang_new_group = "SELECT * FROM " . E_DB_NAME . ".lang_article_group WHERE c_id = " . $article_group_first['c_id'] . "";
 $a_data_lang = db::getFetch($lang_new_group);
 ?>
@@ -59,13 +57,13 @@ if ($org_page[0]["c_show_org_chk"] == "Y" && empty($c_org)) {
         </div>
     </div>
 
-    <!-- <section class="search-sec">
+    <section class="search-sec">
         <div class="container">
             <form id="list_more_news" method="post" novalidate="novalidate">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                            <div class="col-lg-4 col-md-4 col-sm-12 p-0">
                                 <?php if ($lang == "EN") { ?>
                                     <input type="text" class="form-control search-slt" name="s_search" id="s_search" placeholder="Enter Search Term" list="datalistOptions" onclick="clearText('s_search');" value="<?php echo $s_search; ?>">
                                 <?php } else { ?>
@@ -98,18 +96,7 @@ if ($org_page[0]["c_show_org_chk"] == "Y" && empty($c_org)) {
                                     <input type="date" name="n_date_end" id="n_date_end" placeholder="วันสิ้นสุด" class="form-control search-slt search-select" onclick="clearText('n_date_end');" value="<?php echo $n_date_end; ?>" />
                                 </div>
                             <?php } ?>
-                            <div class="col-lg-2 col-md-2 col-sm-12 p-0">
-                                <select name="org_id" id="org_id" class="form-control search-slt search-select select2">
-                                    <?php if ($lang == "EN") { ?>
-                                        <option value=""> All Departments Within </option>
-                                    <?php } else { ?>
-                                        <option value=""> ทุกหน่วยงานภายใน </option>
-                                    <?php } ?>
-                                    <?php foreach ($org_name as $key => $value) { ?>
-                                        <option value="<?php echo $value["org_id"]; ?>" <?php echo (trim($value["org_id"]) == trim($org_id)) ? "selected" : null; ?>> <?php echo $value["name_org"]; ?> </option>
-                                    <?php } ?>
-                                </select>
-                            </div>
+                            
 
                             <div class="col-lg-2 col-md-2 col-sm-12 p-0">
                                 <select class="form-control search-slt search-select" name="c_id" id="c_id">
@@ -132,16 +119,16 @@ if ($org_page[0]["c_show_org_chk"] == "Y" && empty($c_org)) {
                                 <?php } ?>
                             </div>
                         </div>
-                        <div class="text-center mt-5 text-red text-short-more-news" id="list_row">
-                            <?php if (!empty($s_search) || !empty($n_date_start) || !empty($n_date_end) || !empty($org_id)) { ?>
-                                <?= $text_search_results;?> <?php echo !empty($s_search) ? '"' . $s_search . '"' : null; ?><?php echo !empty($org_id) ? '"' . user::orgName($org_id)[0]["name_org"] . '"' : null; ?> <?= $text_found_all;?> <?php echo number_format($article_limit['countAll']); ?> <?= $text_list;?>
+                        <div class="row text-center mt-5 text-red text-short-more-news" id="list_row">
+                            <?php if (!empty($s_search) || !empty($n_date_start) || !empty($n_date_end) || !empty($c_id) || empty($c_id)) { ?>
+                                <?= $text_search_results; ?> <?php echo !empty($s_search) ? '"' . $s_search . '"' : null; ?> ผลการค้นหาทั้งหมด <?php echo number_format($article_limit['countAll']); ?> <?= "รายการ"; ?>
                             <?php } ?>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-    </section> -->
+    </section>
 
     <?php if (!empty($article_limit['data']) && $article_group_first['c_show_document'] == 'Y') { ?>
         <div class="container-fluid">
@@ -235,14 +222,14 @@ if ($org_page[0]["c_show_org_chk"] == "Y" && empty($c_org)) {
                 </div>
 
                 <!-- Start แสดงการตัดหน้าเพจ -->
-                <?php echo pagination_ewt('more_news_list.php', 'c_id=' . $c_id . '&s_search=' . $s_search . '&n_date_start=' . $n_date_start . '&n_date_end=' . $n_date_end . '&org_id=' . $org_id, $page, $per_page, $article_limit["countAll"], $lang); ?>
+                <?php echo pagination_ewt('more_news_list.php', 'c_id=' . $c_id . '&s_search=' . $s_search . '&n_date_start=' . $n_date_start . '&n_date_end=' . $n_date_end . '&org_id=' .$c_id, $page, $per_page, $article_limit["countAll"]); ?>
                 <!-- End แสดงการตัดหน้าเพจ-->
             </div>
         </div>
     <?php } ?>
 
-    <?php if ($article_check_group > 0 && !empty($article_sub_group)) { ?>
-        <section id="article-sec">
+    <?php // if ($article_check_group > 0 && !empty($article_sub_group)) { ?>
+        <!-- <section id="article-sec">
             <div class="container">
                 <div class="article--subcat"><?php ($lang == 'EN' ? "List of Subcategories Under" : "รายการหมวดย่อยภายใต้")  ?> "<?php echo $article_group_first['c_name']; ?>"</div>
                 <div class="row">
@@ -265,8 +252,8 @@ if ($org_page[0]["c_show_org_chk"] == "Y" && empty($c_org)) {
                     } ?>
                 </div>
             </div>
-        </section>
-    <?php } ?>
+        </section> -->
+    <?php // } ?>
 </div>
 
 <script type="text/javascript">
@@ -275,12 +262,10 @@ if ($org_page[0]["c_show_org_chk"] == "Y" && empty($c_org)) {
     }
 
     $("#btn_search").click(function() {
-        window.location.href = 'more_news.php?c_id=' + $('#c_id').val() +
+        window.location.href = 'more_news_list.php?c_id=' + $('#c_id').val() +
             '&s_search=' + $('#s_search').val() +
             '&n_date_start=' + $('#n_date_start').val() +
-            '&n_date_end=' + $('#n_date_end').val() +
-            '&org_id=' + $('#org_id').val() +
-            '&c_org=' + '<?php echo $c_org; ?>';
+            '&n_date_end=' + $('#n_date_end').val();
     });
 </script>
 
