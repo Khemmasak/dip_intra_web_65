@@ -80,7 +80,7 @@ $result = dbdpis::getFetch($sql_profile);
               <!-- <a class="dropdown-item" href="tenure_information.php"> <i class="fas fa-briefcase"></i> ข้อมูลการดำรงตำแหน่ง </a> -->
               <a class="dropdown-item" href="private_floder.php"> <i class="fas fa-folder-open"></i> แฟ้มส่วนตัว </a>
               <a class="dropdown-item" href="Booking_status.php"> <i class="fas fa-check-square"></i> สถานะคำขอ </a>
-			  <a class="dropdown-item" href="Booking_status.php"> <i class="fas fa-lock"></i> เปลี่ยนรหัสผ่าน </a>
+			  <a class="dropdown-item" href="https://mail.diprom.go.th/"> <i class="fas fa-lock"></i> เปลี่ยนรหัสผ่าน </a>
               <a class="dropdown-item" href="logout.php"> <i class="fas fa-sign-out-alt"></i> ออกจากระบบ </a>
             </div>
           </li>
