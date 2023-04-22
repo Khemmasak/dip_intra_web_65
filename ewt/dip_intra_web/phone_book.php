@@ -926,7 +926,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
         </div> -->
 </div>
 </div>
-<?php echo $phone_book["count"];
+<?php 
     echo pagination_ewt('phone_book.php', 's_name=' . $s_name . '&emp_type_id=' . $emp_type_id . '&org_id=' . $org_id . '', $page, $per_page_contact, $phone_book["countAll"]);
     ?>
 <!-- modal -->
