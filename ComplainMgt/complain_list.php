@@ -107,6 +107,7 @@ $total_page = (int)ceil($total_record / $perpage);
 if($a_rows > 0){
 $i = 0;
 while($a_data = $db->db_fetch_array($_sql)){
+	$name = explode('#@#',$a_data['name']);
 ?>	
 <div class="panel panel-default ">
             <div class="panel-heading ewt-bg-success">
@@ -121,8 +122,8 @@ while($a_data = $db->db_fetch_array($_sql)){
             <div id="collapseOne<?php echo $i;?>" class="panel-collapse collapse">
                 <div class="panel-body">
                    	<div><b><?php echo $txt_complain_detail;?> :</b> <?php echo $a_data['detail'];?></div><br> 
-					<div><b><?php echo $txt_complain_name;?> :</b> <?php $name = explode('#@#',$a_data['name']);
-					echo $name[0]." - ".$name[1];
+					<div><b><?php echo $txt_complain_name;?> :</b> <?php 
+					echo $name[0]."  ".$name[1];
 					?>
 					</div><br> 
 					<div><b><?php echo $txt_complain_email;?> :</b> <?php echo $a_data['email'];?></div><br> 
@@ -199,7 +200,7 @@ include("../EWT_ADMIN/combottom.php");
 <script src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/jquery-ui.min.js"></script>
 <script src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/jquery-ui-touch-punch.min.js"></script>
 <style>
-<!--
+
 .panel-default > .panel-heading {
     /*color: #FFFFFF;*/
     /*background-color: #FFC153 ;*/
@@ -348,7 +349,7 @@ include("../EWT_ADMIN/combottom.php");
 	line-height: 1.2em;
 	border: 3px dotted #cccccc !important;
 }
--->
+
 </style>
 <script>
 function JQDelete_Complain(id){
