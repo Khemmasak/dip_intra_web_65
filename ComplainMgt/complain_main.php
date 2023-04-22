@@ -127,10 +127,10 @@ while($a_data = $db->db_fetch_array($_sql)){
 					<div><b><?php echo $txt_complain_tel;?> :</b> <?php echo $a_data['tel'];?></div><br> 
 					<div><b><?php echo $txt_complain_attack;?> :</b>
 					<?php if(!empty($a_data['attach_img'])){ ?>
-<a href="../ewt/<?php echo $_SESSION['EWT_SUSER']."/file_attach/".$a_data['attach_img'];?>" data-toggle="tooltip" data-placement="top" title="download" download >
-<button type="button" class="btn btn-info btn-circle  btn-ml " >
-<i class="fas fa-file-alt"></i> 
-</button>
+					<a href="../ewt/<?php echo $_SESSION['EWT_SUSER']."/file_attach/".$a_data['attach_img'];?>" data-toggle="tooltip" data-placement="top" title="download" download >
+					<button type="button" class="btn btn-info btn-circle  btn-ml " >
+					<i class="fas fa-file-alt"></i> 
+					</button>
 
 <?php echo $a_data['attach_img'];?>
 </a>
