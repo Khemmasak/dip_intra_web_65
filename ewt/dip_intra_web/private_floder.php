@@ -121,7 +121,9 @@ $total_page = ceil($a_row_all / $per_page);
     </div>
     <hr class="hr_news mt-0">
     <div class="row">
-        <?php foreach ($a_data as $k => $val) { ?>
+        <?php 
+        if($a_row > 0){
+        foreach ($a_data as $k => $val) { ?>
             <?php
             $n_owner = user::chkUser(array("gen_user_id" => $val["n_owner"]))[0];
             $full_name = $n_owner["name_thai"] . ' ' . $n_owner["surname_thai"];
@@ -175,7 +177,11 @@ $total_page = ceil($a_row_all / $per_page);
                     </div>
                 </div>
             </div>
-        <?php } ?>
+            <?php }}else{ ?>
+            <div class="col">
+                <p class="text-center">ท่านยังไม่มีข้อมูลในส่วนนี้</p>
+            </div>
+            <?php }?>
 
         <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-12 mb-4">
             <div class="row">
