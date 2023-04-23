@@ -307,4 +307,3 @@ if ($a_data['proc'] == 'Add') {
 	exit;
 }
 
-

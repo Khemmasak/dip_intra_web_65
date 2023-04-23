@@ -221,8 +221,8 @@ $a_rows = $db->db_num_rows($s_sql);
 										content: 'บันทึกข้อมูลเรียบร้อย',
 										boxWidth: '30%',
 										onAction: function() {
-											self.location.href = "permission_builder_user.php?mid=" + data + "&mtype=<?php echo url_encode('U'); ?>";
-											//location.reload(true);	
+											//self.location.href = "permission_builder_user.php?mid=" + data + "&mtype=<?php echo url_encode('U'); ?>";
+											location.reload(true);	
 											//$("#frm_edit_s").load(location.href + " #frm_edit_s");
 											$('#box_popup').fadeOut();
 										}
