@@ -721,7 +721,7 @@ function checkFile(input) {
                     e.spliced && e.verified ? (n.sliderContainer.classList.add("sliderContainer_success"), i(n.options.onSuccess) && n.options.onSuccess.call(n.$element)) : (n.sliderContainer.classList.add("sliderContainer_fail"), i(n.options.onFail) && n.options.onFail.call(n.$element), setTimeout(function() {
                         n.text.innerHTML = n.options.failedText;
                         n.reset();
-                        $('#chk_captcha').text('Captcha ไม่ถูกต้องกรุณาร้องใหม่อีกครั้ง!');
+                        $('#chk_captcha').text('Captcha ไม่ถูกต้องกรุณาลองใหม่อีกครั้ง!');
                         $('#btn_submit').prop('disabled', true);
                     }, 1e3))
                 };
