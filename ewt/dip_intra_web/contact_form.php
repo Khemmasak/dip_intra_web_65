@@ -355,7 +355,7 @@ $result = dbdpis::getFetch($sql_profile);
             <div class="row mb-2">
                 <div class="col-12 col-sm-12">
                     <label class="h2-color" id="c_topic" for="topic">เรื่องที่ต้องการสอบถาม : </label>
-                    <input type="text" class="form-control" name="topic" id="topic" placeholder="กรุณากรอกหัวข้อการประชุม">
+                    <input type="text" class="form-control" name="topic" id="topic" placeholder="กรุณากรอกเรื่องที่ต้องการสอบถาม">
                 </div>
             </div>
 
