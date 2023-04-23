@@ -889,12 +889,12 @@ class article
 
         if ($n_date_start) {
             $date_start = convDateAd($n_date_start);
-            $wh .= " AND n_date >= '{$date_start}'";
+            $wh .= " AND n_date >= '{$n_date_start}'";
         }
 
         if ($n_date_end) {
             $date_end = convDateAd($n_date_end);
-            $wh .= " AND n_date <= '{$date_end}'";
+            $wh .= " AND n_date <= '{$n_date_end}'";
         }
 
         if ($org_name) {
