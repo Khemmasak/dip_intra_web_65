@@ -100,8 +100,8 @@ $a_data_pro   = db::getfetch($_sql_pro);
       <div class="col-lg-9 col-md-7 col-sm-12 col-12 martop-profile">
         <div class="row">
           <div class="col-lg-8 col-md-12 col-sm-12 col-12">
-            <h2 class="h2-color "><?php echo $result['PER_NAME_TH']  . "  " . $result['PER_LASTNAME_TH']; ?></h2>
-            <h3 class="mb-2"><?php echo $result["USR_PREFIX"].$result['USR_FNAME_EN'] . "  " . $result['USR_LNAME_EN']; ?></h3>
+            <h2 class="h2-color "><?php echo $result["USR_PREFIX"].$result['PER_NAME_TH']  . "  " . $result['PER_LASTNAME_TH']; ?></h2>
+            <h3 class="mb-2"><?php echo $result['USR_FNAME_EN'] . "  " . $result['USR_LNAME_EN']; ?></h3>
             <p class="mb-0">กลุ่มงาน :<span> <?php echo $result['DEP_2']; ?> </span></p>
             <p>สังกัด :<span> <?php echo $result['DEP_1']; ?> </span></p>
           </div>
