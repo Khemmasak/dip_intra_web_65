@@ -177,7 +177,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
 
 
               <div class="form-group col-md-4">
-                <label for="name_org" class="label-form"> หน่วยงานที่ปฏิบัติงานจริง<span class="txt-red"></span> </label>
+                <label for="name_org" class="label-form"> กลุ่มงาน<span class="txt-red"></span> </label>
                 <input class="form-control" id="name_org" name="name_org" placeholder="-" value="<?php echo $result['DEP_2']; ?>" disabled>
               </div>
 
