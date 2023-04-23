@@ -260,7 +260,7 @@ include("../EWT_ADMIN/comtop.php");
 												<th class="text-center">หมวดย่อย</th>
 												<th class="text-center">บทความ</th>
 												<th class="text-center">สถานะเผยแพร่เอกสาร</th>
-												<th class="text-center" <?php echo $disabled2; ?>><?php echo $txt_article_rss; ?><a href="#help_01">*</a><br></th>
+												<!-- <th class="text-center" <?php echo $disabled2; ?>><?php echo $txt_article_rss; ?><a href="#help_01">*</a><br></th> -->
 												<th class="text-center" <?php echo $disabled1; ?>><?php echo $txt_article_delete_group; ?></th>
 											</tr>
 										</thead>
@@ -376,7 +376,7 @@ include("../EWT_ADMIN/comtop.php");
 																<?php } ?>
 															</td>
 
-															<td class="text-center">
+															<!-- <td class="text-center">
 																<?php if ($pass_w == 'Y') { ?>
 																	<div class="checkbox">
 																		<label>
@@ -386,7 +386,7 @@ include("../EWT_ADMIN/comtop.php");
 																	</div>
 																	<input name="chkrssH<?php echo $i; ?>" type="hidden" id="chkrssH<?php echo $i; ?>" value="<?php echo $G['c_id']; ?>" />
 																<?php } ?>
-															</td>
+															</td> -->
 															<td class="text-center" <?php echo $disabled1; ?>>
 																<?php
 																if ($pass_w == 'Y') {
@@ -416,13 +416,13 @@ include("../EWT_ADMIN/comtop.php");
 														</button>
 													<?php } ?>
 												</td>
-												<td class="text-center" <?php echo $disabled2; ?>>
+												<!-- <td class="text-center" <?php echo $disabled2; ?>>
 													<?php if ($block_edit == "Y") { ?>
 														<button type="button" class="btn btn-success  btn-ml " onClick="document.form1.Flag.value='SetRSS'; document.form1.submit();">
 															<i class="fas fa-cog"></i>&nbsp;<?php echo $txt_article_btn_set_rss; ?>
 														</button>
 													<?php } ?>
-												</td>
+												</td> -->
 
 												<td class="text-center" <?php echo $disabled1; ?>>
 													<?php if ($block_edit == "Y") { ?>
@@ -433,7 +433,7 @@ include("../EWT_ADMIN/comtop.php");
 											</tr>
 
 											<tr class="ui-state-default">
-												<td colspan="5" valign="top"><span class="ewtnormal"><a name="help_01"></a>* เลือก RSS เป็นการกำหนดให้ข่าวกลุ่มนั้นมีการส่งออกเป็นไฟล์ XML ตามมาตรฐาน RSS ได้</span></td>
+												<!-- <td colspan="5" valign="top"><span class="ewtnormal"><a name="help_01"></a>* เลือก RSS เป็นการกำหนดให้ข่าวกลุ่มนั้นมีการส่งออกเป็นไฟล์ XML ตามมาตรฐาน RSS ได้</span></td> -->
 												<td align="center" <?php echo $disabled2; ?>>&nbsp;</td>
 												<td align="center" <?php echo $disabled1; ?>>&nbsp;</td>
 											</tr>
