@@ -179,7 +179,7 @@ $total_page = ceil($a_row_all / $per_page);
             </div>
             <?php }}else{ ?>
             <div class="col">
-                <p class="text-center">ท่านยังไม่มีข้อมูลในส่วนนี้</p>
+                <p class="text-center">ยังไม่มีรายการ</p>
             </div>
             <?php }?>
 
