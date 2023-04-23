@@ -132,11 +132,11 @@ $total_page = (int)ceil($total_record / $perpage);
 </div>
 
 <div class="col-md-12 col-sm-12 col-xs-12 float-right text-right hidden-xs"  >	
-<a onClick="boxPopup('<?php echo linkboxPopup();?>pop_add_org_list.php');" >
+<!-- <a onClick="boxPopup('<?php echo linkboxPopup();?>pop_add_org_list.php');" >
 <button type="button" class="btn btn-info  btn-ml"    title="<?php echo $txt_org_add;?>"  >
 <i class="fas fa-plus-circle"></i>&nbsp;<?php echo $txt_org_add;?>
 </button>
-</a>
+</a> -->
 
 	<button type="button" class="btn btn-primary btn-ml search_module_button">
 		<i class="fas fa-search"></i>&nbsp;ค้นหาบุคลากร
