@@ -34,17 +34,17 @@
 </button>
 </a> -->
 <?php } if($db->check_permission("org","o","")){ ?>
-<a href="org_group.php" target="_self">
+<!-- <a href="org_group.php" target="_self">
 <button type="button" class="btn btn-default btn-sm" >
            <i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_group;?>
 </button>
-</a>
+</a> -->
 <?php } if($db->check_permission("org","p","")){ ?>
-<a href="org_position.php"  target="_self">
+<!-- <a href="org_position.php"  target="_self">
 <button type="button" class="btn btn-default btn-sm" >
           <i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_postion;?>
 </button>
-</a>
+</a> -->
 <?php } if($db->check_permission("org","g","")){ ?>
 <?php /*<a href="GroupList_in.php"  target="_self">
 <button type="button" class="btn btn-default btn-sm" >
@@ -52,11 +52,11 @@
 </button>
 </a>*/?>
 <?php } if($db->check_permission("org","m","")){ ?>
-<a href="org_title.php"  target="_self">
+<!-- <a href="org_title.php"  target="_self">
 <button type="button" class="btn btn-default btn-sm" >
          <i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_nametitle;?>
 </button>
-</a>
+</a> -->
 <?php } 
 
 if($db->check_permission("org","tq","")){ ?>
@@ -75,9 +75,9 @@ if($db->check_permission("org","tq","")){ ?>
             <li><a href="../EWT_ADMIN/main.php" ><i class="fas fa-home"></i>&nbsp;<?php echo $txt_ewt_home ;?></a></li>
             <li><a href="org_dashboard.php"><i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_main;?></a></li>
 			<li><a href="org_list.php"><i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_list;?></a></li>
-			<li><a href="org_position.php"><i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_group;?></a></li>
+			<!-- <li><a href="org_position.php"><i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_group;?></a></li>
 			<li><a href="org_title.php"><i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_postion;?></a></li>
-			<li><a href="org_chart.php"><i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_chart;?></a></li>
+			<li><a href="org_chart.php"><i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_org_menu_chart;?></a></li> -->
 			<li><a href="org_type_list.php"><i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo "ประเภทบุคลากร";?></a></li>
 			
 			<!--<li><a href="permission_group.php"><i class="far fa-arrow-alt-circle-right"></i>&nbsp;<?php echo $txt_permission_menu_group;?></a></li>	-->
