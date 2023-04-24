@@ -259,7 +259,7 @@ function get_TH_Date2($date){
 							ระยะไมค์ : <?php echo $value['CAR_MILEAGE'];?> กิโลเมตร
                         </div>
                         <div class="post-item-date line-height-20px">
-							ผู้ดูแล : <?php echo $value['CAR_KEEPER'];?>
+							ผู้ดูแล : สำนักเลขานุการกรม
                         </div>
                     </div>
                     <div class="general-btn text-right mt-1 ">

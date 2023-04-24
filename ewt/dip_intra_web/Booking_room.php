@@ -254,7 +254,7 @@ function get_TH_Date2($date){
                     </div>
                     <div class="general-btn text-right mt-1">
                         <a class="btn txt-purple  bg-white border-ra-10px pad-more-btn px-3" href="form_bookingRoom.php?<?php echo "meeting_id=".$value['MEETING_ID'];?>">
-						ลงทะเบียน</a>
+						จองห้องประชุม</a>
                     </div>
                 </div>
             </div>
