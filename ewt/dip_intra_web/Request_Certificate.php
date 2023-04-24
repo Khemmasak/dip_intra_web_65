@@ -42,15 +42,33 @@ $EncryptSal = new encrypt_money();
 
 $USR_USERNAME	= $_SESSION['EWT_USERNAME'];
 dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_ROOT_PASSWORD, SSO_DB_NAME, SSO_CHAR_SET);
+
+##  ต้องดักเพิ่ม ถ้าเป็น พนักงานราชการ AND H.PAY_LIST_ID = 21##
+// CHECK ว่า เป็น ข้าราชการ, พนักงานราชการ, ลูกจ้างประจำ
+$filter_join = '';
+$chk_per_type = "SELECT  A.USR_TEL, A.USR_TEL_PHONE, B.PER_TYPE
+				FROM USR_MAIN A
+				LEFT JOIN M_PER_PROFILE B ON B.PER_IDCARD = A.USR_OPTION3
+				WHERE A.USR_USERNAME = '".$_SESSION['EWT_USERNAME']."' ";
+$q = dbdpis::execute($chk_per_type);
+$chk = dbdpis::Fetch($q);
+$h_1 = "";
+// 1 ข้าราชการ , 2 พนักงานราชการ , 3 ลูกจ้างประจำ
+if($chk['PER_TYPE'] == 1 || $chk['PER_TYPE'] == 2){ 
+	$filter_join = " AND H.PAY_LIST_ID = 1 ";
+}else if($chk['PER_TYPE'] == 3){
+	$filter_join = " AND H.PAY_LIST_ID = 21 ";
+}
 $USR_DATA = dbdpis::getFetch("SELECT TOP 1 A.USR_PREFIX, A.USR_FNAME, A.USR_LNAME,
 									A.USR_PREFIX_EN, A.USR_FNAME_EN, A.USR_LNAME_EN, 
-									B.POS_NAME, C.DEP_NAME, D.DEP_NAME AS DEP_NAME2, E.PER_TYPE_NAME, F.INCOME_MONEY, G.POS_LEVEL_NAME
+									B.POS_NAME, C.DEP_NAME, D.DEP_NAME AS DEP_NAME2, E.PER_TYPE_NAME, F.INCOME_MONEY, G.POS_LEVEL_NAME, H.PAYROLL_MONEY
 								FROM USR_MAIN A
 								LEFT JOIN USR_POSITION B ON B.POS_ID = A.POS_ID
 								LEFT JOIN USR_DEPARTMENT C ON C.DEP_ID = A.DEP_ID
 								LEFT JOIN USR_DEPARTMENT D ON D.DEP_ID = A.USR_OPTION5
 								LEFT JOIN M_PER_TYPE E ON E.PER_TYPE_ID = A.USR_OPTION4
 								LEFT JOIN PAYROLL F ON F.PER_IDCARD = A.USR_OPTION3
+								LEFT JOIN PAYROLL_LIST H ON H.PAYROLL_ID = F.PAYROLL_ID {$filter_join}
 								LEFT JOIN M_POSITION_LEVEL G ON G.POS_LEVEL_ID = A.USR_OPTION2
 								WHERE A.USR_USERNAME = '$USR_USERNAME' 
 								ORDER BY F.PAYROLL_ID DESC
@@ -71,6 +89,7 @@ $FULL_NAME_EN 	= $USR_DATA['USR_PREFIX_EN'].$USR_DATA['USR_FNAME_EN']." ".$USR_D
 // $POS_LEVEL_NAME_EN = $USR_DATA['POS_LEVEL_NAME'];
 
 $INCOME_MONEY = $EncryptSal->decode($USR_DATA['INCOME_MONEY']);
+$PAYROLL_MONEY = $EncryptSal->decode($USR_DATA['PAYROLL_MONEY']);
 
 $DATE_NOW_TH = thainumDigit(show_fulldate_my2_th(DATE('Y-m-d')));
 $DATE_NOW_EN = show_fulldate_my2_en(DATE('Y-m-d'));
@@ -255,13 +274,14 @@ $getRequestCertificateList = callAPI('getRequestCertificateList');//ข้อม
 	<input type="hidden" name="YEAR" value="<?php echo $getRequestCertificateList['Data']['YEAR'];?>">
 	<input type="hidden" name="USR_USERNAME" value="<?php echo $_SESSION['EWT_USERNAME'];?>">
 	<input type="hidden" name="FULL_NAME" value="<?php echo $FULL_NAME;?>">
+	<input type="hidden" name="FULL_NAME_EN" value="<?php echo $FULL_NAME_EN;?>">
 	<input type="hidden" name="POS_NAME" value="<?php echo $POS_NAME;?>">
 	<input type="hidden" name="DEP_NAME" value="<?php echo $DEP_NAME;?>">
 	<input type="hidden" name="DEP_NAME2" value="<?php echo $DEP_NAME2;?>">
 	<input type="hidden" name="PER_TYPE_NAME" value="<?php echo $PER_TYPE_NAME;?>">
 	<input type="hidden" name="POS_LEVEL_NAME" value="<?php echo $POS_LEVEL_NAME;?>">
-	<input type="hidden" name="FULL_NAME_EN" value="<?php echo $FULL_NAME_EN;?>">
 	<input type="hidden" name="INCOME_MONEY" value="<?php echo $INCOME_MONEY;?>">
+	<input type="hidden" name="PAYROLL_MONEY" value="<?php echo $PAYROLL_MONEY;?>">
 	<input type="hidden" name="DATE_NOW_TH" value="<?php echo $DATE_NOW_TH;?>">
 	<input type="hidden" name="DATE_NOW_EN" value="<?php echo $DATE_NOW_EN;?>">
 <div class="shadow-sm container-fluid Knowledge-bg-head ">
@@ -387,7 +407,7 @@ $getRequestCertificateList = callAPI('getRequestCertificateList');//ข้อม
                 </div>-->
 
                 <div>
-                    <h4 class="mt-2 mb-2">สถานที่ในการจัดส่ง</h4>
+                    <h4 class="mt-2 mb-2"><font color="FF0000">*</font> สถานที่ในการจัดส่ง</h4>
 					<?php  foreach ($getLocationSend['Data'] as $key => $value) { ?>
 						<div class="form-check form-check-inline ml-2">
 							<input required class="form-check-input" type="radio" name="LOCATION" id="LOCATION" value="<?php echo $key;?>">
@@ -407,16 +427,22 @@ $getRequestCertificateList = callAPI('getRequestCertificateList');//ข้อม
                         <label class="form-check-label" for="inlineRadio3">ศูนย์ภูมิภาค)</label>
                     </div>-->
 					
-                    <h4 class="mt-2 mb-2">เบอร์โทรศัพท์</h4>
+                    <h4 class="mt-2 mb-2"><font color="FF0000">*</font> เบอร์โทรศัพท์</h4>
                     <form>
                         <div class="form-row">
                             <div class="col ">
-                                <input required id="PHONE" name="PHONE" type="phone" class="form-control" placeholder="เบอร์ที่สะดวกในการติดต่อ">
+                                <input required id="TELEPHONE" name="TELEPHONE" type="phone" class="form-control" placeholder="เบอร์ที่สะดวกในการติดต่อ" VALUE="<?php echo $chk['USR_TEL'];?>">
+                            </div>
+                        </div>
+                    <h4 class="mt-2 mb-2"><font color="FF0000">*</font> เบอร์โทรศัพท์มือถือ</h4>
+                        <div class="form-row">
+                            <div class="col ">
+                                <input required id="PHONE" name="PHONE" type="phone" class="form-control" placeholder="เบอร์ที่สะดวกในการติดต่อ" VALUE="<?php echo $chk['USR_TEL_PHONE'];?>">
                             </div>
                         </div>
                     </form>
 					
-                    <h4 class="mt-2 mb-2">วัตถุประสงค์</h4>
+                    <h4 class="mt-2 mb-2"><font color="FF0000">*</font> วัตถุประสงค์</h4>
                     <div class="form-row ">
                         <select required id="OBJECTIVE" name="OBJECTIVE" class="form-control mb-2" placeholder="-- กรุณาเลือก --">
                             <option  value="" selected>-- กรุณาเลือก --</option>
@@ -628,11 +654,11 @@ jQuery(document).ready(function() {
 		// text_salary = '<h5 class="h2-color m-0">หนังสือรับรองเงินเดือน</h5>';
 			if (document.getElementById('defaultCheckThai').checked == true) {
 				chk_th = '1';
-				text_salary_th = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเงินเดือนและระยะเวลาทำงาน (ภาษาไทย) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_salary&work_th_preview_pdf.php?FULL_NAME='+$('input[name=FULL_NAME]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_TH='+$('input[name=DATE_NOW_TH]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';//<i class="fa-solid fa-magnifying-glass"></i>
+				text_salary_th = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเงินเดือนและระยะเวลาทำงาน (ภาษาไทย) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_salary&work_th_preview_pdf.php?FULL_NAME='+$('input[name=FULL_NAME]').val()+'&FULL_NAME_EN='+$('input[name=FULL_NAME_EN]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&PAYROLL_MONEY='+$('input[name=PAYROLL_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_TH='+$('input[name=DATE_NOW_TH]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';//<i class="fa-solid fa-magnifying-glass"></i>
 			}
 			if (document.getElementById('defaultCheckEng').checked == true) {
 				chk_en = '1';
-				text_salary_en = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเงินเดือนและระยะเวลาทำงาน (ภาษาอังกฤษ) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_salary&work_en_preview_pdf.php?FULL_NAME_EN='+$('input[name=FULL_NAME_EN]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_EN='+$('input[name=DATE_NOW_EN]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';
+				text_salary_en = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเงินเดือนและระยะเวลาทำงาน (ภาษาอังกฤษ) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_salary&work_en_preview_pdf.php?FULL_NAME_EN='+$('input[name=FULL_NAME_EN]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&PAYROLL_MONEY='+$('input[name=PAYROLL_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_EN='+$('input[name=DATE_NOW_EN]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';
 			}
 	// CHECK เงินเดือน แต่ไม่ CHECK ระยะเวลาทำงาน
 	}else if (document.getElementById('defaultCheckSalary').checked == true && document.getElementById('defaultCheckWork').checked == false) {
@@ -640,11 +666,11 @@ jQuery(document).ready(function() {
 		// text_salary = '<h5 class="h2-color m-0">หนังสือรับรองเงินเดือน</h5>';
 			if (document.getElementById('defaultCheckThai').checked == true) {
 				chk_th = '1';
-				text_salary_th = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเฉพาะเงินเดือน (ภาษาไทย) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_salary_th_preview_pdf.php?FULL_NAME='+$('input[name=FULL_NAME]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_TH='+$('input[name=DATE_NOW_TH]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';//<i class="fa-solid fa-magnifying-glass"></i>
+				text_salary_th = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเฉพาะเงินเดือน (ภาษาไทย) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_salary_th_preview_pdf.php?FULL_NAME='+$('input[name=FULL_NAME]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&PAYROLL_MONEY='+$('input[name=PAYROLL_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_TH='+$('input[name=DATE_NOW_TH]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';//<i class="fa-solid fa-magnifying-glass"></i>
 			}
 			if (document.getElementById('defaultCheckEng').checked == true) {
 				chk_en = '1';
-				text_salary_en = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเฉพาะเงินเดือน (ภาษาอังกฤษ) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_salary_en_preview_pdf.php?FULL_NAME_EN='+$('input[name=FULL_NAME_EN]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_EN='+$('input[name=DATE_NOW_EN]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';
+				text_salary_en = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเฉพาะเงินเดือน (ภาษาอังกฤษ) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_salary_en_preview_pdf.php?FULL_NAME_EN='+$('input[name=FULL_NAME_EN]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&PAYROLL_MONEY='+$('input[name=PAYROLL_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_EN='+$('input[name=DATE_NOW_EN]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';
 			}
 	// CHECK ระยะเวลาทำงาน แต่ไม่ CHECK เงินเดือน
 	}else if (document.getElementById('defaultCheckWork').checked == true && document.getElementById('defaultCheckSalary').checked == false) {
@@ -652,11 +678,11 @@ jQuery(document).ready(function() {
 		// text_salary = '<h5 class="h2-color m-0">หนังสือรับรองเงินเดือน</h5>';
 			if (document.getElementById('defaultCheckThai').checked == true) {
 				chk_th = '1';
-				text_salary_th = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเฉพาะระยะเวลาทำงาน (ภาษาไทย) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_work_th_preview_pdf.php?FULL_NAME='+$('input[name=FULL_NAME]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_TH='+$('input[name=DATE_NOW_TH]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';//<i class="fa-solid fa-magnifying-glass"></i>
+				text_salary_th = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเฉพาะระยะเวลาทำงาน (ภาษาไทย) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_work_th_preview_pdf.php?FULL_NAME='+$('input[name=FULL_NAME]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&PAYROLL_MONEY='+$('input[name=PAYROLL_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_TH='+$('input[name=DATE_NOW_TH]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';//<i class="fa-solid fa-magnifying-glass"></i>
 			}
 			if (document.getElementById('defaultCheckEng').checked == true) {
 				chk_en = '1';
-				text_salary_en = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเฉพาะระยะเวลาทำงาน (ภาษาอังกฤษ) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_work_en_preview_pdf.php?FULL_NAME_EN='+$('input[name=FULL_NAME_EN]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_TH='+$('input[name=DATE_NOW_TH]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';
+				text_salary_en = '<h5 class="h2-color m-0">หนังสือรับรองที่มีการระบุเฉพาะระยะเวลาทำงาน (ภาษาอังกฤษ) <a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('+text+'FILE_PDF/certificate_work_en_preview_pdf.php?FULL_NAME_EN='+$('input[name=FULL_NAME_EN]').val()+'&POS_NAME='+$('input[name=POS_NAME]').val()+'&DEP_NAME='+$('input[name=DEP_NAME]').val()+'&DEP_NAME2='+$('input[name=DEP_NAME2]').val()+'&PER_TYPE_NAME='+$('input[name=PER_TYPE_NAME]').val()+'&INCOME_MONEY='+$('input[name=INCOME_MONEY]').val()+'&PAYROLL_MONEY='+$('input[name=PAYROLL_MONEY]').val()+'&POS_LEVEL_NAME='+$('input[name=POS_LEVEL_NAME]').val()+'&DATE_NOW_TH='+$('input[name=DATE_NOW_TH]').val()+''+text+', '+text+'_blank'+text+',);" ><i class="fa fa-eye"></i> ดูตัวอย่าง</a></h5>';
 			}
 	} 
 	
