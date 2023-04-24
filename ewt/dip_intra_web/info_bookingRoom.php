@@ -207,27 +207,8 @@ $getRequestBookingRoomDetail = callAPI('getRequestBookingRoomDetail', $data_requ
                                 <div class="col-xl-6 col-lg-7 col-md-8 col-sm-9 col-8 pl-0 ">
 
                                     <h4 class=" mt-1 h2-color  mt-3 mb-0 pr-1" style="font-weight: bold;"><?php echo $ROOM_KEEPER;?></h4>
-                                    <p class="mb-0">ศส.</p>
-                                    <p class="">091-XXX-XXXX</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lx-6 col-lg-6 col-md-6 col-sm-12 col-12 mt-2">
-                        <!-- shadow-sm -->
-                        <div class="shadow-sm border-ra-15px">
-                            <!-- ภายในกล่องชื่อผู้รับผิดชอบ -->
-                            <div class="row">
-                                <!-- รูปภาพผู้รับผิดชอบ -->
-                                <div class="col-xl-6 col-lg-5 col-md-4 col-sm-3 col-4 d-flex align-items-center">
-                                    <img src="images/profile.jpg" class="้h-100 d-block w-100 p-2 border-ra-15px " alt="...">
-                                </div>
-                                <!-- ชื่อ/วันที่/เวลา -->
-                                <div class="col-xl-6 col-lg-7 col-md-8 col-sm-9 col-8 pl-0 ">
-
-                                    <h4 class=" mt-1 h2-color mb-0 mt-3  pr-1" style="font-weight: bold;">ไดอิจิ ฮิระตะ</h4>
-                                    <p class="mb-0">กม.</p>
-                                    <p class="">091-XXX-XXXX</p>
+                                    <!--<p class="mb-0">ศส.</p>
+                                    <p class="">091-XXX-XXXX</p>-->
                                 </div>
                             </div>
                         </div>

@@ -203,7 +203,7 @@ $getRequestBookingCarDetail = callAPI('getRequestBookingCarDetail', $data_reques
                                 <div class="col-xl-6 col-lg-7 col-md-8 col-sm-9 col-8 pl-0 mb-2">
                                     
                                     <h4 class=" mt-1 h2-color mt-3 mb-1 pr-1" style="font-weight: bold;"><?php echo $CAR_KEEPER;?></h4>
-                                    <p class="pb-2">ศส.</p>
+                                    <!--<p class="pb-2">ศส.</p>-->
                                 </div>
                             </div>
                         </div>
