@@ -36,9 +36,14 @@ $list = dbdpis::execute("SELECT * FROM PAYROLL A WHERE REPLACE(A.PER_IDCARD, '-'
 
     <div>
         <!-- ส่วนของข้อมูลผู้ใช้ -->
-        <h2 class="h2-color pt-4">
+        <div class="row">
+            <div class="col">
+            <h2 class="h2-color pt-4">
             <i class="fa fa-book" aria-hidden="true"></i> ข้อมูลการเงินและหนังสือรับรอง
         </h2>
+            </div>
+            <div class="col"> <h2 class="h2-color pt-4 text-right">รายได้สุทธิ</h2></div>
+        </div>
         <hr class="hr_news mt-0">
 
         <!-- รายการ -->
