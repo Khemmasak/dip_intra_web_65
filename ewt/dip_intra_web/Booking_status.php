@@ -3,14 +3,14 @@
 <?php include('header.php'); ?>
 <!-- Menu and Logo -->
 <?php include('callservice.php'); ?>
-<!-- CALL SERVICE... -->
+<!-- CALL SERVICE -->
 
 
 <?php
 $short_dep = array (
 //สำนักงานเลขานุการกรม
 244 => "ลสล.กสอ.", 363 => "หฝบท.สล.กสอ.", 413 => "ผกค.สล.กสอ.", 364 => "ผกบ.สล.กสอ.", 365 => "ผกส.สล.กสอ.", 
-366 => "ผกพ.สล.กสอ.", 414 => "ผกง.สล.กสอ.",
+366 => "ผกพ.สล.กสอ.", 414 => "ผกง.สล.กสอ.", // มีเพิ่ม 1 กลุ่ม อย่าลืมมาเพิ่ม
 //กองพัฒนาขีดความสามารถธุรกิจอุตสาหกรรม
 298 => "ผอ.กข.กสอ.", 415 => "หฝบท.กข.กสอ.", 416 => "ผกจ.กข.กสอ.", 417 => "ผกร.กข.กสอ.", 418 => "ผกบ.กข.กสอ.", 
 419 => "ผกผ.กข.กสอ.", 420 => "ผกอ.กข.กสอ.", 
@@ -26,6 +26,8 @@ $short_dep = array (
 266 => "ผอ.กม.กสอ.", 385 => "หฝบท.กม.กสอ.", 386 => "ผกจ.กม.กสอ.", 440 => "ผกพ.กม.กสอ.", 387 => "ผกส.กม.กสอ.", 
 //ศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร
 328 => "ผอ.ศส.กสอ.", 441 => "ผกบ.ศส.กสอ.", 442 => "ผกง.ศส.กสอ.", 443 => "ผกท.ศส.กสอ.", 438 => "ผกค.ศส.กสอ.",
+//กองพัฒนาเกษตรอุตสาหกรรม
+267 => "ผกธ.กอ.กสอ.", 268 => "ผกผ.กอ.กสอ.", 262 => "หฝบท.กอ.กสอ.", 263 => "ผกจ.กอ.กสอ.", 264 => "ผกน.กอ.กสอ.",
 //กลุ่มตรวจสอบภายใน
 362 => "ผอ.ตสน.กสอ.", 
 );
@@ -280,40 +282,41 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 					$p3 = "<i class='fa fa-briefcase h2-color  pb-0'></i> หน่วยงานผู้จอง : ศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร";
 					$p4 = "<i class='fa fa-phone h2-color  pb-0'></i> เบอร์ติดต่อผู้จอง :".$value['REQ_TEL'];
 					$p5 = "<i class='fa fa-user h2-color  pb-0'> </i> ผู้เข้าร่วม ".$value['MEETING_NUM_PP']." คน";
-					$p6 = "<i class='fa fa-door-open h2-color  pb-0'></i> เลขที่ห้อง ".$value['ROOM_NUMBER'];
+					$p6 = "<i class='fa fa-door-open h2-color  pb-0'></i> ".$value['ROOM_NAME'];
 					$p7 = "<i class='fa fa-calendar h2-color  pb-0'></i> ".($value['MEETING_DATE'] == $value['MEETING_EDATE'] ? "วันที่ ".$value['MEETING_DATE']:"วันที่ ".$value['MEETING_DATE']." - ".$value['MEETING_EDATE'])." เวลา ".$value['STIME']." น. -  ".$value['ETIME']." น.";
 					$p8 = "";
 					$p9 = "";
 					$p10 = "ใบขออนุญาตใช้ห้องประชุม : ";
-					$data_request_wfd1 = array(
+					$data_request_room_wfd1 = array(
 						"wfr_id" => $value['WFR_ID'],
 						"wf_main_id" => '6682',
-						"wfd_id" => '2471'
+						"wfd_id" => '2471',
+						"req_type" => 'room_app1' //ผู้ผ่านความเห็นชอบ
 					);
-					$getWFSTEP_wfd1 = callAPI('getWFSTEP', $data_request_wfd1);
-					foreach($getWFSTEP_wfd1['Data'][$value['WFR_ID']] as $key => $v1){
-						$app_1 = $v1['USR_NAME'];
-						$app_1_username = $v1['USR_USERNAME'];
+					$getWFSTEP_room_wfd1 = callAPI('getWFSTEP', $data_request_room_wfd1);
+					foreach($getWFSTEP_room_wfd1['Data'][$value['WFR_ID']] as $key => $v1){
+						$app_room_1 = $v1['USR_NAME'];
+						$app_room_1_username = $v1['USR_USERNAME'];
 					}
 					$data_request_wfd2 = array(
 						"wfr_id" => $value['WFR_ID'],
 						"wf_main_id" => '6682',
 						"wfd_id" => '2477'
 					);
-					$getWFSTEP_wfd2 = callAPI('getWFSTEP', $data_request_wfd2);
-					foreach($getWFSTEP_wfd2['Data'][$value['WFR_ID']] as $key => $v2){
-						$app_2 = $v2['USR_NAME'];
+					$getWFSTEP_wfd_room_2 = callAPI('getWFSTEP', $data_request_wfd2);
+					foreach($getWFSTEP_wfd_room_2['Data'][$value['WFR_ID']] as $key => $v2){
+						$app_room_2 = $v2['USR_NAME'];
 					}
 					
-					$sql_app_1 = "SELECT B.DEP_LV2_ID
+					$sql_app_room_1 = "SELECT B.DEP_LV2_ID
 									FROM USR_MAIN A
 									LEFT JOIN M_PER_PROFILE B ON B.PER_IDCARD = A.USR_OPTION3
-									WHERE A.USR_USERNAME = '".$app_1_username."' ";
-					$q_app_1 = dbdpis::execute($sql_app_1);
-					$chk_app_1 = dbdpis::Fetch($q_app_1);
-					$app1_dep_name = $short_dep[$chk_app_1["DEP_LV2_ID"]];// ผ่าน (ตำแหน่งย่อ)
+									WHERE A.USR_USERNAME = '".$app_room_1_username."' ";
+					$q_app_room_1 = dbdpis::execute($sql_app_room_1);
+					$chk_app_room_1 = dbdpis::Fetch($q_app_room_1);
+					$app1_dep_room_name = $short_dep[$chk_app_room_1["DEP_LV2_ID"]];// ผ่าน (ตำแหน่งย่อ) 
 					
-					$p10 .= '<a style="width:80px;text-align:center;" type="button" class=" " onclick="window.open('."'".'FILE_PDF/booking_room_report_pdf.php?CB_PER_ID='.$get_CB_PER_ID.'&CB_AREA='.$value['ROOM_NAME'].'&CB_MEMBER='.$value['MEETING_NUM_PP'].'&CB_OBJ='.$value['MEETING_TOPIC'].'&MEETING_DATE='.$value['MEETING_DATE2'].'&MEETING_EDATE='.$value['MEETING_EDATE2'].'&STIME='.$value['STIME'].'&ETIME='.$value['ETIME'].'&REQ_TEL='.$value['REQ_TEL'].'&CAR_REGISTER='.$get_CAR_REGISTER.'&DEP_NAME1='.$chk['DEP_NAME1'].'&DEP_NAME2='.$chk['DEP_NAME2'].'&POS_NAME='.$chk['POS_NAME'].'&APP_1='.$app_1.'&APP_1_NAME='.$app1_dep_name.'&APP_2_NAME='.$short_dep[$value["DEP_KEEPER_SSO"]].'&APP_2='.$app_2.'&MEETINH_CHAIRMAN='.$value['MEETINH_CHAIRMAN'].'&WFR_ID='.$value["WFR_ID"].'&CB_RECORD='.$getRequestBookingCarDetail['Data'][0]['CB_RECORD'].' '."'".', '."'".'_blank'."'".',);" > download</a>';
+					$p10 .= '<a style="width:80px;text-align:center;" type="button" class=" " onclick="window.open('."'".'FILE_PDF/booking_room_report_pdf.php?CB_PER_ID='.$value['REQ_NAME'].'&CB_AREA='.$value['ROOM_NAME'].'&CB_MEMBER='.$value['MEETING_NUM_PP'].'&CB_OBJ='.$value['MEETING_TOPIC'].'&MEETING_DATE='.$value['MEETING_DATE2'].'&MEETING_EDATE='.$value['MEETING_EDATE2'].'&STIME='.$value['STIME'].'&ETIME='.$value['ETIME'].'&REQ_TEL='.$value['REQ_TEL'].'&CAR_REGISTER='.$get_CAR_REGISTER.'&DEP_NAME1='.$chk['DEP_NAME1'].'&DEP_NAME2='.$chk['DEP_NAME2'].'&POS_NAME='.$chk['POS_NAME'].'&APP_1='.$app_room_1.'&APP_1_NAME='.$app1_dep_room_name.'&APP_2_NAME='.$short_dep[$value["DEP_KEEPER_SSO"]].'&APP_2='.$app_room_2.'&MEETINH_CHAIRMAN='.$value['MEETINH_CHAIRMAN'].'&WFR_ID='.$value["WFR_ID"].'&CB_RECORD='.$value['REQ_DATE_OG'].' '."'".', '."'".'_blank'."'".',);" > download</a>';
 					
 					$img2 = '<img src="images/'.$get_ROOM_PIC_NAME.'" class="d-block w-100" alt="...">';
 					
@@ -400,6 +403,7 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 					$get_CB_PER_ID = $getRequestBookingCarDetail['Data'][0]['CB_PER_ID'];
 					$get_CAR_ID = $getRequestBookingCarDetail['Data'][0]['CAR_ID'];
 					$get_CAR_REGISTER = $getRequestBookingCarDetail['Data'][0]['CAR_DETAIL'];
+					$get_CAR_REGISTER2 = $getRequestBookingCarDetail['Data'][0]['CAR_REGISTER'];
 					$get_CAR_MILEAGE = $getRequestBookingCarDetail['Data'][0]['CAR_MILEAGE'];
 					$get_CAR_PIC_NAME = $getRequestBookingCarDetail['Data'][0]['CAR_PIC_NAME'];
 					$get_STAFF_NAME = $getRequestBookingCarDetail['Data'][0]['STAFF_FULL_NAME'];
@@ -429,7 +433,8 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 					$data_request_wfd1 = array(
 						"wfr_id" => $value['WFR_ID'],
 						"wf_main_id" => '7047',
-						"wfd_id" => '2472'
+						"wfd_id" => '2472',
+						"req_type" => 'car_app1' //ผู้ผ่านความเห็นชอบ
 					);
 					$getWFSTEP_wfd1 = callAPI('getWFSTEP', $data_request_wfd1);
 					foreach($getWFSTEP_wfd1['Data'][$value['WFR_ID']] as $key => $v1){
@@ -455,7 +460,7 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 					
 					$app1_dep_name = $short_dep[$chk_app_1["DEP_LV2_ID"]];// ผ่าน (ตำแหน่งย่อ)
 					
-					$p10 .= '<a style="width:80px;text-align:center;" type="button" class=" " onclick="window.open('."'".'FILE_PDF/booking_car_report_pdf.php?CB_PER_ID='.$get_CB_PER_ID.'&CB_AREA='.$value['ROOM_NAME'].'&CB_MEMBER='.$value['MEETING_NUM_PP'].'&CB_OBJ='.$value['MEETING_TOPIC'].'&MEETING_DATE='.$value['MEETING_DATE2'].'&MEETING_EDATE='.$value['MEETING_EDATE2'].'&STIME='.$value['STIME'].'&ETIME='.$value['ETIME'].'&REQ_TEL='.$value['REQ_TEL'].'&CAR_REGISTER='.$get_CAR_REGISTER.'&DEP_NAME1='.$chk['DEP_NAME1'].'&DEP_NAME2='.$chk['DEP_NAME2'].'&POS_NAME='.$chk['POS_NAME'].'&APP_1='.$app_1.'&APP_1_NAME='.$app1_dep_name.'&APP_2='.$app_2.'&CB_RECORD='.$getRequestBookingCarDetail['Data'][0]['CB_RECORD'].' '."'".', '."'".'_blank'."'".',);" > download</a>';
+					$p10 .= '<a style="width:80px;text-align:center;" type="button" class=" " onclick="window.open('."'".'FILE_PDF/booking_car_report_pdf.php?CB_PER_ID='.$get_CB_PER_ID.'&CB_AREA='.$value['ROOM_NAME'].'&CB_MEMBER='.$value['MEETING_NUM_PP'].'&CB_OBJ='.$value['MEETING_TOPIC'].'&MEETING_DATE='.$value['MEETING_DATE2'].'&MEETING_EDATE='.$value['MEETING_EDATE2'].'&STIME='.$value['STIME'].'&ETIME='.$value['ETIME'].'&REQ_TEL='.$value['REQ_TEL'].'&DEP_NAME1='.$chk['DEP_NAME1'].'&DEP_NAME2='.$chk['DEP_NAME2'].'&POS_NAME='.$chk['POS_NAME'].'&APP_1='.$app_1.'&APP_1_NAME='.$app1_dep_name.'&APP_2='.$app_2.'&CAR_REGISTER='.$get_CAR_REGISTER2.'&CB_RECORD='.$getRequestBookingCarDetail['Data'][0]['CB_RECORD'].'&CS_PER_NAME='.$getRequestBookingCarDetail['Data'][0]['ALLOCATE_NAME'].' '."'".', '."'".'_blank'."'".',);" > download</a>';
 					
 					if($get_CAR_PIC_NAME){
 						$img2 = '<img src="images/'.$get_CAR_PIC_NAME.'" class="d-block w-100" alt="...">';
@@ -524,12 +529,13 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 					$ap_status = $value['APPROVE_STATUS1'];
 					
 					if($value['APPROVE_STATUS1']==1){
-						$status = "<font color='green'>ดำเนินการแล้ว</font>";
-						$preview = "ดูเอกสาร";
+						$status = "<font color='green'>ดำเนินการแล้วเสร็จ</font>";
+						// $preview = "ดูเอกสาร";
 					}else{
 						$status = "<font color='orange'>รอดำเนินการ</font>";
-						$preview = "ดูตัวอย่าง";
+						// $preview = "ดูตัวอย่าง";
 					}
+					$preview = "ดูตัวอย่าง";
 					
 					foreach($value['obj_FILE_SAVE_NAME'] as $key ){
 						foreach($key as $k => $v){
@@ -561,7 +567,11 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 							
 							$f = '<h5 class="h2-color m-0"><a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('."'".'FILE_PDF/certificate_work_th_preview_pdf.php?FULL_NAME='.$getCertificateDetail['Data']['FULL_NAME'].'&POS_NAME='.$getCertificateDetail['Data']['POS_NAME'].'&DEP_NAME='.$getCertificateDetail['Data']['DEP_NAME'].'&DEP_NAME2='.$getCertificateDetail['Data']['DEP_NAME2'].'&PER_TYPE_NAME='.$getCertificateDetail['Data']['PER_TYPE_NAME'].'&INCOME_MONEY='.$getCertificateDetail['Data']['INCOME_MONEY'].'&POS_LEVEL_NAME='.$getCertificateDetail['Data']['POS_LEVEL_NAME'].'&DATE_NOW_TH='.$getCertificateDetail['Data']['DATE_NOW_TH'].'&DATE_NOW_EN='.$getCertificateDetail['Data']['DATE_NOW_EN'].'&AP_STATUS='.$ap_status.' '."'".', '."'".'_blank'."'".',);" ><i class="fa fa-eye"></i> '.$preview.'</a></h5>';
 						}else if($book_name == 'หนังสือรับรองที่มีการระบุเฉพาะระยะเวลาทำงาน' && $language == '(ภาษาอังกฤษ)'){
-							$f = '<h5 class="h2-color m-0"><a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('."'".'FILE_PDF/certificate_work_en_preview_pdf.php?FULL_NAME='.$getCertificateDetail['Data']['FULL_NAME_EN'].'&POS_NAME='.$getCertificateDetail['Data']['POS_NAME_EN'].'&DEP_NAME='.$getCertificateDetail['Data']['DEP_NAME_EN'].'&DEP_NAME2='.$getCertificateDetail['Data']['DEP_NAME2_EN'].'&PER_TYPE_NAME='.$getCertificateDetail['Data']['PER_TYPE_NAME_EN'].'&INCOME_MONEY='.$getCertificateDetail['Data']['INCOME_MONEY'].'&POS_LEVEL_NAME='.$getCertificateDetail['Data']['POS_LEVEL_NAME_EN'].'&DATE_NOW_TH='.$getCertificateDetail['Data']['DATE_NOW_TH'].'&DATE_NOW_EN='.$getCertificateDetail['Data']['DATE_NOW_EN'].'&AP_STATUS='.$ap_status.' '."'".', '."'".'_blank'."'".',);" ><i class="fa fa-eye"></i> '.$preview.'</a></h5>';
+							$data_request_wfr = array(
+														"WFR" => $value['WFR_ID'],
+												);
+							$getCertificateDetail = callAPI('getCertificateDetail',$data_request_wfr);
+							$f = '<h5 class="h2-color m-0"><a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('."'".'FILE_PDF/certificate_work_en_preview_pdf.php?FULL_NAME_EN='.$getCertificateDetail['Data']['FULL_NAME_EN'].'&POS_NAME='.$getCertificateDetail['Data']['POS_NAME_EN'].'&DEP_NAME='.$getCertificateDetail['Data']['DEP_NAME_EN'].'&DEP_NAME2='.$getCertificateDetail['Data']['DEP_NAME2_EN'].'&PER_TYPE_NAME='.$getCertificateDetail['Data']['PER_TYPE_NAME_EN'].'&INCOME_MONEY='.$getCertificateDetail['Data']['INCOME_MONEY'].'&POS_LEVEL_NAME='.$getCertificateDetail['Data']['POS_LEVEL_NAME_EN'].'&DATE_NOW_TH='.$getCertificateDetail['Data']['DATE_NOW_TH'].'&DATE_NOW_EN='.$getCertificateDetail['Data']['DATE_NOW_EN'].'&AP_STATUS='.$ap_status.' '."'".', '."'".'_blank'."'".',);" ><i class="fa fa-eye"></i> '.$preview.'</a></h5>';
 						}else if($book_name == 'หนังสือรับรองที่มีการระบุเฉพาะเงินเดือน' && $language == '(ภาษาไทย)'){
 							$data_request_wfr = array(
 														"WFR" => $value['WFR_ID'],
@@ -571,7 +581,12 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 							
 							$f = '<h5 class="h2-color m-0"><a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('."'".'FILE_PDF/certificate_salary_th_preview_pdf.php?FULL_NAME='.$getCertificateDetail['Data']['FULL_NAME'].'&POS_NAME='.$getCertificateDetail['Data']['POS_NAME'].'&DEP_NAME='.$getCertificateDetail['Data']['DEP_NAME'].'&DEP_NAME2='.$getCertificateDetail['Data']['DEP_NAME2'].'&PER_TYPE_NAME='.$getCertificateDetail['Data']['PER_TYPE_NAME'].'&INCOME_MONEY='.$getCertificateDetail['Data']['INCOME_MONEY'].'&POS_LEVEL_NAME='.$getCertificateDetail['Data']['POS_LEVEL_NAME'].'&DATE_NOW_TH='.$getCertificateDetail['Data']['DATE_NOW_TH'].'&DATE_NOW_EN='.$getCertificateDetail['Data']['DATE_NOW_EN'].'&AP_STATUS='.$ap_status.' '."'".', '."'".'_blank'."'".',);" ><i class="fa fa-eye"></i> '.$preview.'</a></h5>';
 						}else if($book_name == 'หนังสือรับรองที่มีการระบุเฉพาะเงินเดือน' && $language == '(ภาษาอังกฤษ)'){
-							$f = '<h5 class="h2-color m-0"><a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('."'".'FILE_PDF/certificate_salary_en_preview_pdf.php?FULL_NAME='.$getCertificateDetail['Data']['FULL_NAME_EN'].'&POS_NAME='.$getCertificateDetail['Data']['POS_NAME_EN'].'&DEP_NAME='.$getCertificateDetail['Data']['DEP_NAME_EN'].'&DEP_NAME2='.$getCertificateDetail['Data']['DEP_NAME2_EN'].'&PER_TYPE_NAME='.$getCertificateDetail['Data']['PER_TYPE_NAME_EN'].'&INCOME_MONEY='.$getCertificateDetail['Data']['INCOME_MONEY'].'&POS_LEVEL_NAME='.$getCertificateDetail['Data']['POS_LEVEL_NAME_EN'].'&DATE_NOW_TH='.$getCertificateDetail['Data']['DATE_NOW_TH'].'&DATE_NOW_EN='.$getCertificateDetail['Data']['DATE_NOW_EN'].'&AP_STATUS='.$ap_status.' '."'".', '."'".'_blank'."'".',);" ><i class="fa fa-eye"></i> '.$preview.'</a></h5>';
+							$data_request_wfr = array(
+														"WFR" => $value['WFR_ID'],
+												);
+							$getCertificateDetail = callAPI('getCertificateDetail',$data_request_wfr);
+							
+							$f = '<h5 class="h2-color m-0"><a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('."'".'FILE_PDF/certificate_salary_en_preview_pdf.php?FULL_NAME_EN='.$getCertificateDetail['Data']['FULL_NAME_EN'].'&POS_NAME='.$getCertificateDetail['Data']['POS_NAME_EN'].'&DEP_NAME='.$getCertificateDetail['Data']['DEP_NAME_EN'].'&DEP_NAME2='.$getCertificateDetail['Data']['DEP_NAME2_EN'].'&PER_TYPE_NAME='.$getCertificateDetail['Data']['PER_TYPE_NAME_EN'].'&INCOME_MONEY='.$getCertificateDetail['Data']['INCOME_MONEY'].'&POS_LEVEL_NAME='.$getCertificateDetail['Data']['POS_LEVEL_NAME_EN'].'&DATE_NOW_TH='.$getCertificateDetail['Data']['DATE_NOW_TH'].'&DATE_NOW_EN='.$getCertificateDetail['Data']['DATE_NOW_EN'].'&AP_STATUS='.$ap_status.' '."'".', '."'".'_blank'."'".',);" ><i class="fa fa-eye"></i> '.$preview.'</a></h5>';
 						}else if($book_name == 'หนังสือรับรองที่มีการระบุเงินเดือนและระยะเวลาทำงาน' && $language == '(ภาษาไทย)'){
 							$data_request_wfr = array(
 														"WFR" => $value['WFR_ID'],
@@ -580,7 +595,11 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 							// echo '<pre>'; print_r($getCertificateDetail['Data']); echo '</pre>'; 
 							$f = '<h5 class="h2-color m-0"><a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('."'".'FILE_PDF/certificate_salary&work_th_preview_pdf.php?FULL_NAME='.$getCertificateDetail['Data']['FULL_NAME'].'&POS_NAME='.$getCertificateDetail['Data']['POS_NAME'].'&DEP_NAME='.$getCertificateDetail['Data']['DEP_NAME'].'&DEP_NAME2='.$getCertificateDetail['Data']['DEP_NAME2'].'&PER_TYPE_NAME='.$getCertificateDetail['Data']['PER_TYPE_NAME'].'&INCOME_MONEY='.$getCertificateDetail['Data']['INCOME_MONEY'].'&POS_LEVEL_NAME='.$getCertificateDetail['Data']['POS_LEVEL_NAME'].'&DATE_NOW_TH='.$getCertificateDetail['Data']['DATE_NOW_TH'].'&DATE_NOW_EN='.$getCertificateDetail['Data']['DATE_NOW_EN'].'&AP_STATUS='.$ap_status.' '."'".', '."'".'_blank'."'".',);" ><i class="fa fa-eye"></i> '.$preview.'</a></h5>';
 						}else if($book_name == 'หนังสือรับรองที่มีการระบุเงินเดือนและระยะเวลาทำงาน' && $language == '(ภาษาอังกฤษ)'){
-							$f = '<h5 class="h2-color m-0"><a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('."'".'FILE_PDF/certificate_salary&work_en_preview_pdf.php?FULL_NAME='.$getCertificateDetail['Data']['FULL_NAME_EN'].'&POS_NAME='.$getCertificateDetail['Data']['POS_NAME_EN'].'&DEP_NAME='.$getCertificateDetail['Data']['DEP_NAME_EN'].'&DEP_NAME2='.$getCertificateDetail['Data']['DEP_NAME2_EN'].'&PER_TYPE_NAME='.$getCertificateDetail['Data']['PER_TYPE_NAME_EN'].'&INCOME_MONEY='.$getCertificateDetail['Data']['INCOME_MONEY'].'&POS_LEVEL_NAME='.$getCertificateDetail['Data']['POS_LEVEL_NAME_EN'].'&DATE_NOW_TH='.$getCertificateDetail['Data']['DATE_NOW_TH'].'&DATE_NOW_EN='.$getCertificateDetail['Data']['DATE_NOW_EN'].'&AP_STATUS='.$ap_status.' '."'".', '."'".'_blank'."'".',);" ><i class="fa fa-eye"></i> '.$preview.'</a></h5>';
+							$data_request_wfr = array(
+														"WFR" => $value['WFR_ID'],
+												);
+							$getCertificateDetail = callAPI('getCertificateDetail',$data_request_wfr);
+							$f = '<h5 class="h2-color m-0"><a style="width:80px;text-align:center;" type="button" class="border-ra-15px btn-light " onclick="window.open('."'".'FILE_PDF/certificate_salary&work_en_preview_pdf.php?FULL_NAME_EN='.$getCertificateDetail['Data']['FULL_NAME_EN'].'&POS_NAME='.$getCertificateDetail['Data']['POS_NAME_EN'].'&DEP_NAME='.$getCertificateDetail['Data']['DEP_NAME_EN'].'&DEP_NAME2='.$getCertificateDetail['Data']['DEP_NAME2_EN'].'&PER_TYPE_NAME='.$getCertificateDetail['Data']['PER_TYPE_NAME_EN'].'&INCOME_MONEY='.$getCertificateDetail['Data']['INCOME_MONEY'].'&POS_LEVEL_NAME='.$getCertificateDetail['Data']['POS_LEVEL_NAME_EN'].'&DATE_NOW_TH='.$getCertificateDetail['Data']['DATE_NOW_TH'].'&DATE_NOW_EN='.$getCertificateDetail['Data']['DATE_NOW_EN'].'&AP_STATUS='.$ap_status.' '."'".', '."'".'_blank'."'".',);" ><i class="fa fa-eye"></i> '.$preview.'</a></h5>';
 						}
 						$p1 .= $book_name." <br>".$language." จำนวน ".$key['QUANTITY_REQUIRED']." ฉบับ ".$f."<br>";
 						// $p1 .= "<h5 class='h2-color m-0'><a style='width:80px;text-align:center;' type='button' class='border-ra-15px btn-light ' onclick='window.open('FILE_PDF/certificate_salary&work_th_preview_pdf.php', '_blank',);' ><i class='fa fa-eye'></i> ดูตัวอย่าง</a></h5>";
