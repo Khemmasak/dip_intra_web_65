@@ -38,6 +38,7 @@ $data_request = array(
 						"COUNT" 		=> $_POST['COUNT'],
 						
 						"LOCATION" 		=> $_POST['LOCATION'],
+						"TELEPHONE" 		=> $_POST['TELEPHONE'],
 						"PHONE" 		=> $_POST['PHONE'],
 						"OBJECTIVE"		=> $_POST['OBJECTIVE'],
 						"REQ_DATE" 		=> date('Y-m-d'),
@@ -57,6 +58,7 @@ $data_request = array(
 						"FULL_NAME_EN"		=> $_POST['FULL_NAME_EN'],
 						
 						"INCOME_MONEY"		=> $_POST['INCOME_MONEY'],
+						"PAYROLL_MONEY"		=> $_POST['PAYROLL_MONEY'],
 					);
 	
  $getCarList = callAPI('insertRequestCertificate', $data_request);
