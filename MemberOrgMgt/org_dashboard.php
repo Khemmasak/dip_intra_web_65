@@ -55,7 +55,7 @@ dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_RO
 							<div class="" id="frm_edit_s">
 								<div id="frm_load">
 									<div class="row">
-										<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 m-b-sm">
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-b-sm">
 											<a class="card card-banner card-green-light" onclick="self.location.href='org_list.php'">
 												<!--Users Who have initiated at lest one session during the date range.    -->
 												<div class="card-body">
@@ -82,9 +82,9 @@ dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_RO
 												</div>
 											</a>
 										</div>
-										<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 m-b-sm">
+										<!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 m-b-sm">
 											<a class="card card-banner card-blue-light" onclick="self.location.href='org_group.php'">
-												<!--Users Who have initiated at lest one session during the date range.    -->
+												
 												<div class="card-body">
 													<i class="icon fas fa-database fa-4x"></i>
 													<div class="content">
@@ -110,7 +110,7 @@ dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_RO
 										</div>
 										<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 m-b-sm">
 											<a class="card card-banner card-yellow-light" onclick="self.location.href='org_position.php'">
-												<!--Users Who have initiated at lest one session during the date range.    -->
+												
 												<div class="card-body">
 													<i class="icon far fa-id-card fa-4x"></i>
 													<div class="content">
@@ -133,10 +133,10 @@ dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_RO
 													</div>
 												</div>
 											</a>
-										</div>
+										</div> -->
 									</div>
 									<div class="row">
-										<div class="col-gl-6 col-md-6 col-sm-12 col-xs-12 m-b-sm">
+										<div class="col-gl-12 col-md-12 col-sm-12 col-xs-12 m-b-sm">
 											<div class="card ">
 												<div class="card-header ewt-bg-color m-b-sm b-t-l-3 b-t-r-3">
 													<div class="card-title text-left">
@@ -164,7 +164,7 @@ dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_RO
 											</div>
 										</div>
 
-										<div class="col-gl-6 col-md-6 col-sm-12 col-xs-12 m-b-sm">
+										<!-- <div class="col-gl-6 col-md-6 col-sm-12 col-xs-12 m-b-sm">
 											<div class="card ">
 												<div class="card-header ewt-bg-color m-b-sm b-t-l-3 b-t-r-3">
 													<div class="card-title text-left">
@@ -190,7 +190,7 @@ dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_RO
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 								</div>
 

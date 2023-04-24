@@ -33,11 +33,11 @@
 </button>
 </a>-->
 
-<a href="permission_org.php" title="รายการสิทธิ์กลุ่มหน่วยงาน"  target="_self">
+<!-- <a href="permission_org.php" title="รายการสิทธิ์กลุ่มหน่วยงาน"  target="_self">
 <button type="button" class="btn btn-default btn-sm" >
           <i class="far fa-arrow-alt-circle-right"></i>&nbsp;รายการสิทธิ์กลุ่มหน่วยงาน
 </button>
-</a>
+</a> -->
 
 </div>
 <div class="col-md-6 col-sm-6 col-xs-12 float-right text-right  visible-xs row m-b-sm ">
