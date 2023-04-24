@@ -183,7 +183,7 @@ ob_start();
 	<tr>
 		<td align="left" colspan="10" style="font-size:14pt;">
 			<strong>ผู้ประสานงาน</strong> &nbsp;<?php echo $_GET['CB_PER_ID'] ; ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; หมายเลขโทรศัพท์</strong> &nbsp;<?php echo $_GET['REQ_TEL']; ?>
+			<strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; หมายเลขโทรศัพท์</strong> &nbsp;<?php echo $_GET['REQ_TEL']; ?>
 		</td>
 	</tr>
 	<tr>

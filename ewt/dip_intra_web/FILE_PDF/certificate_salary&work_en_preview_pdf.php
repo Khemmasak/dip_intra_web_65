@@ -110,10 +110,10 @@ ob_start();
 $body = ob_get_contents();
 ob_end_clean();
 
-if($_GET["AP_STATUS"] != 1){
+// if($_GET["AP_STATUS"] != 1){
 $mpdf->SetWatermarkText('ตัวอย่างหนังสือรับรอง');
 $mpdf->showWatermarkText = true;
-}
+// }
 
 $mpdf->WriteHTML($std_css.$header.$body);
 $mpdf->Output();

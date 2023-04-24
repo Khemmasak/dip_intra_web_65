@@ -171,13 +171,14 @@ ob_start();
 	</tr>
 	<tr>
 		<td align="right" colspan="10" style="font-size:14pt;">
-			ผู้ขออนุญาติ&nbsp;&nbsp;<?php echo $_GET['CB_PER_ID'] ; ?>
+			ผู้ขออนุญาติ&nbsp;&nbsp;………..................................
 		</td>
 	</tr>
 	<tr>
 		<td align="right" colspan="7" style="width:64%"></td><!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
 		<td align="right" colspan="3" style="font-size:14pt;width:36%">
-			<?php echo ($data_show['CB_PER_ID']) ? "(&nbsp;".bsf_show_text('7043',$data_show,"##CB_PER_ID!!",'W')."&nbsp; )" : "(…………..…….....……………………..)"; ?>
+			<?php //echo ($data_show['CB_PER_ID']) ? "(&nbsp;".bsf_show_text('7043',$data_show,"##CB_PER_ID!!",'W')."&nbsp; )" : "(…………..…….....……………………..)"; ?>
+			( <?php echo $_GET['CB_PER_ID']; ?> )
 		</td>
 	</tr>
 	<tr>
@@ -193,13 +194,14 @@ ob_start();
 	<br>
 	<tr>
 		<td align="right" colspan="10" style="font-size:14pt;">
-			ลสล.กสอ./หรือผู้แทน ………..................................
+			ลสล.กสอ./หรือผู้แทน&nbsp;&nbsp;………..................................
 		</td>
 	</tr>
 	<tr>
 		<td align="left" colspan="7" ></td>
 		<td align="right" colspan="3" style="font-size:14pt;">
-			<?php echo ($data_show2['CS_APPROVE_PER_ID']) ? "(&nbsp;".bsf_show_text('7047',$data_show2,"##CS_APPROVE_PER_ID!!",'W')."&nbsp;)" : "(…………..…….....……………………..)"; ?>
+			<?php //echo ($data_show2['CS_APPROVE_PER_ID']) ? "(&nbsp;".bsf_show_text('7047',$data_show2,"##CS_APPROVE_PER_ID!!",'W')."&nbsp;)" : "(…………..…….....……………………..)"; ?>
+			( <?php echo "…………..…….....……………………..";//$_GET['CS_PER_NAME']; ?> )
 		</td>
 	</tr>
 	<tr>
@@ -229,7 +231,8 @@ ob_start();
 	<tr>
 		<td align="right" colspan="7" style="width:64%"></td>
 		<td align="right" colspan="3" style="font-size:14pt;width:36%">
-			<?php echo ($data_show2['CS_APPROVE_PER_ID2']) ? "(&nbsp;".bsf_show_text('7047',$data_show2,"##CS_APPROVE_PER_ID2!!",'W')."&nbsp;)" : "(…………..…….....……………………..)"; ?>
+			<?php //echo ($data_show2['CS_APPROVE_PER_ID2']) ? "(&nbsp;".bsf_show_text('7047',$data_show2,"##CS_APPROVE_PER_ID2!!",'W')."&nbsp;)" : "(…………..…….....……………………..)"; ?>
+			( <?php echo $_GET['CS_PER_NAME']; ?> )
 		</td>
 	</tr>
 	<tr>

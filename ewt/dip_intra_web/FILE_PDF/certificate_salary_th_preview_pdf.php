@@ -72,7 +72,7 @@ ob_start();
 <table border="0" >
 	<tr>
 		<td style="" width="70%">ที่&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/ ๒๕๖๖</td>
-		<td width="35%">กรมส่งเสริมอุตสาหกรรม <br>ถนนพระรามที่ ๖ แขวงพญาไทย <br>เขตราชเทวี กรุงเทพฯ ๑๐๔๐๐</td>
+		<td width="35%">กรมส่งเสริมอุตสาหกรรม <br>ถนนพระรามที่ ๖ แขวงทุ่งพญาไทย <br>เขตราชเทวี กรุงเทพฯ ๑๐๔๐๐</td>
 	</tr>
 </table>
 
@@ -122,10 +122,10 @@ $mpdf->SetHTMLFooter('
 </table>
 ');
 
-if($_GET["AP_STATUS"] != 1){
+// if($_GET["AP_STATUS"] != 1){
 $mpdf->SetWatermarkText('ตัวอย่างหนังสือรับรอง');
 $mpdf->showWatermarkText = true;
-}
+// }
 
 $mpdf->WriteHTML($std_css.$header.$body);
 $mpdf->Output();
