@@ -43,85 +43,115 @@ function getUserSSO($start, $per_page, $s_name = null, $emp_type_id = null, $org
         }
 
         if (empty($surname_thai)) {
-            $wh .= " AND (USR_FNAME LIKE '%" . $s_name . "%'";
-            $wh .= "OR USR_LNAME LIKE '%" . $s_name . "%')";
+            $wh .= " AND (  M_PER_PROFILE.PER_NAME_TH LIKE '%" . $s_name . "%'";
+            $wh .= "OR M_PER_PROFILE.PER_LASTNAME_TH LIKE '%" . $s_name . "%')";
         } else {
-            $wh .= " AND (USR_FNAME LIKE '%" . $name_thai . "%'";
-            $wh .= "OR USR_LNAME LIKE '%" . $surname_thai . "%')";
+            $wh .= " AND (M_PER_PROFILE.PER_NAME_TH LIKE '%" . $name_thai . "%'";
+            $wh .= "OR M_PER_PROFILE.PER_LASTNAME_TH LIKE '%" . $surname_thai . "%')";
         }
     }
 
     if ($emp_type_id) {
-        $wh .= " AND USR_MAIN.USR_OPTION4 = {$emp_type_id}";
+        $wh .= " AND M_PER_PROFILE.PER_TYPE = {$emp_type_id}";
     }
 
     if ($org_id) {
-        $wh .= " AND USR_MAIN.DEP_ID = {$org_id}";
+        $wh .= " AND M_PER_PROFILE.DEP_LV1_ID = {$org_id}";
     }
 
-    // $all_s = "SELECT *,(select DEP_NAME FROM USR_DEPARTMENT WHERE M_PER_PROFILE.DEP_LV1_ID = USR_DEPARTMENT.DEP_ID) AS DEP_1,
-    // (select DEP_NAME FROM USR_DEPARTMENT WHERE M_PER_PROFILE.DEP_LV2_ID = USR_DEPARTMENT.DEP_ID) AS DEP_2 FROM M_PER_PROFILE
-    // LEFT JOIN USR_DEPARTMENT ON M_PER_PROFILE.DEP_LV1_ID = USR_DEPARTMENT.DEP_ID
-    // LEFT JOIN M_PER_TYPE ON M_PER_PROFILE.PER_TYPE = M_PER_TYPE.PER_TYPE_ID
-    // LEFT JOIN M_POSITION_LEVEL ON M_PER_PROFILE.PER_POSITION_LVL = M_POSITION_LEVEL.POS_LEVEL_ID
-    // LEFT JOIN USR_MAIN ON M_PER_PROFILE.PER_IDCARD = USR_MAIN.USR_OPTION3
-    // LEFT JOIN USR_POSITION ON M_PER_PROFILE.PER_POS_ID = USR_POSITION.POS_ID
-    // LEFT JOIN M_POSITION_MANAGE ON M_PER_PROFILE.PER_POS_MANAGE_ID = M_POSITION_MANAGE.POS_ADMIN_ID WHERE 1=1 {$wh} ORDER BY USR_MAIN.USR_ID DESC OFFSET {$start} ROWS
-    // FETCH NEXT {$per_page} ROWS ONLY";
-     $all_s = "SELECT
-     *, (
-         SELECT
-             DEP_NAME
-         FROM
-             USR_DEPARTMENT
-         WHERE
-             USR_MAIN.DEP_ID = USR_DEPARTMENT.DEP_ID
-     ) AS DEP_1,
-     (
-         SELECT
-             DEP_NAME
-         FROM
-             USR_DEPARTMENT
-         WHERE
-             USR_MAIN.USR_OPTION5 = USR_DEPARTMENT.DEP_ID
-     ) AS DEP_2
- FROM
-     USR_MAIN
- LEFT JOIN USR_DEPARTMENT ON USR_MAIN.DEP_ID = USR_DEPARTMENT.DEP_ID
- LEFT JOIN M_PER_TYPE ON USR_MAIN.USR_OPTION4 = M_PER_TYPE.PER_TYPE_ID
- LEFT JOIN M_POSITION_LEVEL ON USR_MAIN.USR_OPTION2 = M_POSITION_LEVEL.POS_LEVEL_ID
- LEFT JOIN USR_POSITION ON USR_MAIN.POS_ID = USR_POSITION.POS_ID
- LEFT JOIN M_POSITION_MANAGE ON USR_MAIN.USR_OPTION1 = M_POSITION_MANAGE.POS_ADMIN_ID
- WHERE
-     1 = 1 {$wh}
- ORDER BY
-     USR_MAIN.USR_ID DESC OFFSET {$start} ROWS
-     FETCH NEXT {$per_page} ROWS ONLY";
+    // if ($s_name) {
+    //     $name_explode = explode(" ", $s_name);
+    //     if (count($name_explode) > 1) {
+    //         $name_thai = $name_explode[0];
+    //         $surname_thai = $name_explode[1];
+    //     } else {
+    //         $name_thai = $s_name;
+    //         $surname_thai = null;
+    //     }
+
+    //     if (empty($surname_thai)) {
+    //         $wh .= " AND (USR_FNAME LIKE '%" . $s_name . "%'";
+    //         $wh .= "OR USR_LNAME LIKE '%" . $s_name . "%')";
+    //     } else {
+    //         $wh .= " AND (USR_FNAME LIKE '%" . $name_thai . "%'";
+    //         $wh .= "OR USR_LNAME LIKE '%" . $surname_thai . "%')";
+    //     }
+    // }
+
+    // if ($emp_type_id) {
+    //     $wh .= " AND USR_MAIN.USR_OPTION4 = {$emp_type_id}";
+    // }
+
+    // if ($org_id) {
+    //     $wh .= " AND USR_MAIN.DEP_ID = {$org_id}";
+    // }
+
+    $all_s = "SELECT * , (select DEP_NAME FROM USR_DEPARTMENT WHERE M_PER_PROFILE.DEP_LV1_ID = USR_DEPARTMENT.DEP_ID) AS DEP_1,
+    (select DEP_NAME FROM USR_DEPARTMENT WHERE M_PER_PROFILE.DEP_LV2_ID = USR_DEPARTMENT.DEP_ID) AS DEP_2 FROM M_PER_PROFILE
+    LEFT JOIN USR_DEPARTMENT ON M_PER_PROFILE.DEP_LV1_ID = USR_DEPARTMENT.DEP_ID
+    LEFT JOIN M_PER_TYPE ON M_PER_PROFILE.PER_TYPE = M_PER_TYPE.PER_TYPE_ID
+    LEFT JOIN M_POSITION_LEVEL ON M_PER_PROFILE.PER_POSITION_LVL = M_POSITION_LEVEL.POS_LEVEL_ID
+    LEFT JOIN USR_MAIN ON M_PER_PROFILE.PER_IDCARD = USR_MAIN.USR_OPTION3
+    LEFT JOIN USR_POSITION ON M_PER_PROFILE.PER_POS_ID = USR_POSITION.POS_ID
+    LEFT JOIN M_POSITION_MANAGE ON M_PER_PROFILE.PER_POS_MANAGE_ID = M_POSITION_MANAGE.POS_ADMIN_ID WHERE 1=1 
+    {$wh} ORDER BY M_PER_PROFILE.PER_ID DESC OFFSET {$start} ROWS FETCH NEXT {$per_page} ROWS ONLY";
+	
+	
+//      $all_s = "SELECT
+//      *, (
+//          SELECT
+//              DEP_NAME
+//          FROM
+//              USR_DEPARTMENT
+//          WHERE
+//              USR_MAIN.DEP_ID = USR_DEPARTMENT.DEP_ID
+//      ) AS DEP_1,
+//      (
+//          SELECT
+//              DEP_NAME
+//          FROM
+//              USR_DEPARTMENT
+//          WHERE
+//              USR_MAIN.USR_OPTION5 = USR_DEPARTMENT.DEP_ID
+//      ) AS DEP_2
+//  FROM
+//      USR_MAIN
+//  LEFT JOIN USR_DEPARTMENT ON USR_MAIN.DEP_ID = USR_DEPARTMENT.DEP_ID
+//  LEFT JOIN M_PER_TYPE ON USR_MAIN.USR_OPTION4 = M_PER_TYPE.PER_TYPE_ID
+//  LEFT JOIN M_POSITION_LEVEL ON USR_MAIN.USR_OPTION2 = M_POSITION_LEVEL.POS_LEVEL_ID
+//  LEFT JOIN USR_POSITION ON USR_MAIN.POS_ID = USR_POSITION.POS_ID
+//  LEFT JOIN M_POSITION_MANAGE ON USR_MAIN.USR_OPTION1 = M_POSITION_MANAGE.POS_ADMIN_ID
+//  WHERE
+//      1 = 1 {$wh}
+//  ORDER BY
+//      USR_MAIN.USR_ID DESC";
 
     $a_row    = dbdpis::getRowCount($all_s);
     $a_data =  dbdpis::getFetchAll($all_s);
 
-    $_sql_all     = "SELECT
-     *
- FROM
-     USR_MAIN
- WHERE
-     1 = 1 {$wh}
- ORDER BY
-     USR_MAIN.USR_ID DESC";
-    $a_row_all    = dbdpis::getRowCount($_sql_all);
-
+    // $_sql_all     = "SELECT USR_ID FROM USR_MAIN WHERE 1=1 {$wh}";
+    $_sql_all     = "SELECT * FROM M_PER_PROFILE
+    LEFT JOIN USR_MAIN ON M_PER_PROFILE.PER_IDCARD = USR_MAIN.USR_OPTION3
+ WHERE 1=1 {$wh} ";
+    $a_row_all    = dbdpis::getFetchAll($_sql_all); 
+    $total_page = ceil(count($a_row_all) / $per_page);
     if ($a_data) {
         return array(
             "data" => $a_data,
-            "count" => $a_row,
-            "countAll" => $a_row_all,
-            "sql" => $all_s
+            "count" => count($a_data),
+            "countAll" => count($a_row_all),
+            "sql" => $all_s,
+            "sql2" => $_sql_all,
+            "total" => $total_page
         );
     }
 }
 
 $phone_book = getUserSSO($start_contact, $per_page_contact, $s_name, $emp_type_id, $org_id);
+//echo"<pre>";
+//print_r($phone_book); 
+//echo "</pre>";
+//exit();
 $type = "SELECT * FROM M_PER_TYPE INNER JOIN WF_FILE ON M_PER_TYPE.PER_TYPE_ID=WF_FILE.WFR_ID WHERE WF_FILE.WF_MAIN_ID = '26' ORDER BY M_PER_TYPE.PER_TYPE_ID ASC";
 $datatype =  dbdpis::getFetchAll($type);
 
@@ -568,7 +598,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                 <div class="col-lg-9 col-md-9 col-sm-9 col-12">
                                     <!-- data-target=".bd-example-modal-lg" -->
                                     <a href="#" data-toggle="modal" data-target="#Showdetail<?php echo $value["USR_ID"]; ?>">
-                                        <h4 class="h2-color mb-0"><i class="fas fa-user"></i> <span><?php echo $value["USR_PREFIX"] . $value["USR_FNAME"] . ' ' . $value["USR_LNAME"]; ?></span></h4>
+                                        <h4 class="h2-color mb-0"><i class="fas fa-user"></i> <span><?php echo $value["USR_FNAME"] . ' ' . $value["USR_LNAME"]; ?></span></h4>
                                         <?php if ($org_name) { ?>
                                             <p class="mb-0"><i class="fas fa-briefcase"></i> <span><?php echo $value["DEP_1"]; ?></span></p>
                                         <?php } ?>
@@ -607,7 +637,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
 
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-9 col-8 mt-3">
-                                            <h3 class="h2-color mb-2"><i class="fa fa-user"></i> <?php echo $value["USR_PREFIX"].$value["USR_FNAME"] . ' ' . $value["USR_LNAME"]; ?> (<?php echo $value["USR_NICKNAME"] ?>)</h3>
+                                            <h3 class="h2-color mb-2"><i class="fa fa-user"></i> <?php echo $value["USR_FNAME"] . ' ' . $value["USR_LNAME"]; ?> (<?php echo $value["USR_NICKNAME"] ?>)</h3>
                                             <p class="h2-color my-1"><i class="fa fa-envelope"></i><?php echo $value["USR_EMAIL"]; ?></p>
                                             <p class="h2-color my-1"><i class="fa fa-phone"></i> <?php echo $value["USR_TEL_PHONE"]; ?></p>
                                         </div>
@@ -615,7 +645,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     <hr>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>ชื่อ(ภาษาไทย) :</h4>
+                                            <h4>ชื่อ(ภาษาไทย)</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["USR_FNAME"] ?></p>
@@ -623,7 +653,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     </div>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>นามสุกล(ภาษาไทย) :</h4>
+                                            <h4>นามสุกล(ภาษาไทย)</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["USR_LNAME"] ?></p>
@@ -631,7 +661,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     </div>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>ชื่อ(ภาษาอังกฤษ) :</h4>
+                                            <h4>ชื่อ(ภาษาอังกฤษ)</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2 ">
                                             <p><?php echo $value["USR_FNAME_EN"] ?></p>
@@ -641,7 +671,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     <div class="row d-flex justify-content-center border-b-phonebook">
 
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>นามสุกล(ภาษาอังกฤษ) :</h4>
+                                            <h4>นามสุกล(ภาษาอังกฤษ)</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["USR_LNAME_EN"] ?></p>
@@ -651,7 +681,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     <div class="row d-flex justify-content-center border-b-phonebook">
 
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>ชื่อเล่น :</h4>
+                                            <h4>ชื่อเล่น</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["USR_NICKNAME"] ?></p>
@@ -659,7 +689,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     </div>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>ตำแหน่งในสายงาน :</h4>
+                                            <h4>ตำแหน่งในสายงาน</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["POS_NAME"]; ?></p>
@@ -667,7 +697,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     </div>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>ระดับตำแหน่ง :</h4>
+                                            <h4>ระดับตำแหน่ง</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["POS_LEVEL_NAME"]; ?></p>
@@ -675,7 +705,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     </div>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>สังกัด :</h4>
+                                            <h4>สังกัด</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["DEP_1"]; ?></p>
@@ -683,7 +713,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     </div>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>กลุ่มงาน :</h4>
+                                            <h4>หน่วยงานที่ปฏิบัติงานจริง</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["DEP_2"]; ?></p>
@@ -691,7 +721,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     </div>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>หมายเลขโทรศัพท์ :</h4>
+                                            <h4>หมายเลขโทรศัพท์</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["USR_TEL"]; ?></p>
@@ -700,7 +730,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     <div class="row d-flex justify-content-center border-b-phonebook">
 
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>หมายเลขโทรสาร :</h4>
+                                            <h4>หมายเลขโทรสาร</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["USR_TEL_FAX"]; ?></p>
@@ -708,7 +738,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     </div>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>หมายเลขมือถือ :</h4>
+                                            <h4>หมายเลขมือถือ</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["USR_TEL_PHONE"]; ?></p>
@@ -732,7 +762,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                                     </div>
                                     <div class="row d-flex justify-content-center border-b-phonebook">
                                         <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                            <h4>ที่อยู่ :</h4>
+                                            <h4>ที่อยู่</h4>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
                                             <p><?php echo $value["USR_ADDRESS"]; ?></p>
@@ -748,164 +778,11 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
             }
             ?>
         </div>
-        <div class="modal fade" id="Showdetail<?php echo $value["USR_ID"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <!--
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                            -->
-                    <div class="modal-body">
-                        <div class="row d-flex justify-content-center my-4">
-                            <div class="col-lg-2 col-md-4 col-sm-3 col-4">
-                                <img class="symbolgrov posi-symbolgrov-modal  " src="images/Grovern.png" alt="img">
-                                <img class="mt-1 ml-1 img-fluid border-ra-15px" src="images/profile.jpg" alt="img">
-
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-9 col-8 mt-3">
-                                <h3 class="h2-color mb-2"><i class="fa fa-user"></i> เชิดศักดิ์ คำม่วง (ปาล์ม)</h3>
-                                <p class="h2-color my-1"><i class="fa fa-envelope"></i> cheardsak@diprom.go.th </p>
-                                <p class="h2-color my-1"><i class="fa fa-phone"></i> 088-099-6107 </p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>ชื่อ(ภาษาไทย)</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>แอด</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>นามสุกล(ภาษาไทย)</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>มิน</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>ชื่อ(ภาษาอังกฤษ)</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2 ">
-                                <p>admin</p>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>นามสุกล(ภาษาอังกฤษ)</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>admin</p>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>ชื่อเล่น</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>test123</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>ตำแหน่งในสายงาน</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>ผู้อำนวยการกองการเจ้าหน้าที่</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>ระดับตำแหน่ง</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>-</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>สังกัด</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>ศูนย์เทคโนโลยีสารสนเทศและการสื่อสาร</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>หน่วยงานที่ปฏิบัติงานจริง</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>-</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>หมายเลขโทรศัพท์</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>1234567890</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>หมายเลขโทรสาร</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>1234567890</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>หมายเลขมือถือ</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>1234567890</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-0">
-                                <h4>Email :</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-0">
-                                <p>admin@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>ไอดีไลน์ :</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>admin</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex justify-content-center border-b-phonebook">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 py-2">
-                                <h4>ที่อยู่</h4>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-12 py-2">
-                                <p>75/6 ถนนพระรามที่ 6 ราชเทวี กรุงเทพฯ
-                                    10400 โทร. 02-430-6860
-                                    แฟกซ์ 02-354-3299</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      
     </div>
-    
+    <?php
+    echo pagination_ewt('phone_book.php', 's_name=' . $s_name . '&emp_type_id=' . $emp_type_id . '&org_id=' . $org_id . '', $page, $per_page_contact, $phone_book["countAll"]);
+    ?>
 
     <!-- <div class="d-flex justify-content-center mb-2">
             <nav aria-label="...">
@@ -926,9 +803,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
         </div> -->
 </div>
 </div>
-<?php 
-    echo pagination_ewt('phone_book.php', 's_name=' . $s_name . '&emp_type_id=' . $emp_type_id . '&org_id=' . $org_id . '', $page, $per_page_contact, $phone_book["countAll"]);
-    ?>
+
 <!-- modal -->
 <!-- Large modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
