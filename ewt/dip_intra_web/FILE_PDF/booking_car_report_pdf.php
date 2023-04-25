@@ -139,9 +139,9 @@ ob_start();
 	</tr>
 	<tr>
 		<td align="left" colspan="10" style="font-size:14pt;">
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>ข้าพเจ้า</strong>&nbsp;&nbsp;<?php echo $_GET['CB_PER_ID'] ; ?>&nbsp;
-			<strong>ตำแหน่ง</strong>&nbsp;&nbsp;<?php echo $_GET['POS_NAME'] ; ?>&nbsp;
-			<strong>สังกัด</strong>&nbsp;&nbsp;<?php echo $_GET['DEP_NAME1'] ; ?>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>ข้าพเจ้า</strong>&nbsp;<?php echo $_GET['CB_PER_ID'] ; ?>&nbsp;
+			<strong>ตำแหน่ง</strong>&nbsp;<?php echo $_GET['POS_NAME']." ".$_GET['POS_LEVEL_NAME'] ; ?>
+			<strong>สังกัด</strong>&nbsp;<?php echo $_GET['DEP_NAME1'] ; ?>
 		</td>
 	</tr>
 	<!--<tr>
@@ -232,7 +232,7 @@ ob_start();
 		<td align="right" colspan="7" style="width:64%"></td>
 		<td align="right" colspan="3" style="font-size:14pt;width:36%">
 			<?php //echo ($data_show2['CS_APPROVE_PER_ID2']) ? "(&nbsp;".bsf_show_text('7047',$data_show2,"##CS_APPROVE_PER_ID2!!",'W')."&nbsp;)" : "(…………..…….....……………………..)"; ?>
-			( <?php echo $_GET['CS_PER_NAME']; ?> )
+			( <?php echo ($_GET['CS_PER_NAME'] ? $_GET['CS_PER_NAME'] : "……….................................."); ?> )
 		</td>
 	</tr>
 	<tr>
@@ -248,12 +248,12 @@ ob_start();
 	</tr>
 	<tr>
 		<td align="center" width="50%" colspan="5" style="font-size:14pt;">
-			………..................................<br>
+			<?php echo ($_GET['W_CAR_MILEAGE'] ? $_GET['W_CAR_MILEAGE']." กม." : "……….................................."); ?><br>
 			ระยะ กม./ไมล์<br>
 			(เมื่อรถออกเดินทาง)
 		</td>
 		<td align="center" width="50%" colspan="5" style="font-size:14pt;">
-			………..................................<br>
+			<?php echo ($_GET['R_CAR_MILEAGE'] ? $_GET['R_CAR_MILEAGE']." กม." : "……….................................."); ?><br>
 			ระยะ กม./ไมล์<br>
 			(เมื่อรถถึงที่ทำงาน)
 		</td>
