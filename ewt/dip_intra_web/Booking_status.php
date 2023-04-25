@@ -35,7 +35,29 @@ $short_dep = array (
 dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_ROOT_PASSWORD, SSO_DB_NAME, SSO_CHAR_SET);
 
 // GET DEP_LV1_ID, DEP_LV2_ID, POS_NAME
-$chk_per_type = "SELECT B.*, C.DEP_NAME AS DEP_NAME1, D.DEP_NAME AS DEP_NAME2, E.POS_NAME, F.POS_LEVEL_NAME
+$chk_per_type = "SELECT B.*, C.DEP_NAME AS DEP_NAME1, D.DEP_NAME AS DEP_NAME2, E.POS_NAME
+				FROM USR_MAIN A
+				LEFT JOIN M_PER_PROFILE B ON B.PER_IDCARD = A.USR_OPTION3
+				LEFT JOIN USR_DEPARTMENT C ON C.DEP_ID = B.DEP_LV1_ID
+				LEFT JOIN USR_DEPARTMENT D ON D.DEP_ID = B.DEP_LV2_ID
+				LEFT JOIN USR_POSITION E ON E.POS_ID = B.PER_POS_ID
+				WHERE A.USR_USERNAME = '".$_SESSION['EWT_USERNAME']."' ";
+$q = dbdpis::execute($chk_per_type);
+$chk = dbdpis::Fetch($q);
+// GET POS_LEVEL_NAME
+// ERROR ???
+// $chk_pos_level_name = "SELECT C.POS_LEVEL_NAME
+				// FROM USR_MAIN A
+				// LEFT JOIN M_PER_PROFILE B ON B.PER_IDCARD = A.USR_OPTION3
+				// LEFT JOIN M_POSITION_LEVEL C ON B.PER_POSITION_LVL = C.POS_LEVEL_ID
+				// WHERE A.USR_USERNAME = '".$_SESSION['EWT_USERNAME']."' ";
+// $q2 = dbdpis::execute($chk_pos_level_name);
+// $chk2 = dbdpis::Fetch($q2);
+//per_id fix ไว้ก่อน
+if(!$_GET["Page"]){
+	$_GET["Page"] = 1;
+}
+echo "SELECT B.*, C.DEP_NAME AS DEP_NAME1, D.DEP_NAME AS DEP_NAME2, E.POS_NAME, F.POS_LEVEL_NAME
 				FROM USR_MAIN A
 				LEFT JOIN M_PER_PROFILE B ON B.PER_IDCARD = A.USR_OPTION3
 				LEFT JOIN USR_DEPARTMENT C ON C.DEP_ID = B.DEP_LV1_ID
@@ -43,12 +65,6 @@ $chk_per_type = "SELECT B.*, C.DEP_NAME AS DEP_NAME1, D.DEP_NAME AS DEP_NAME2, E
 				LEFT JOIN USR_POSITION E ON E.POS_ID = B.PER_POS_ID
 				LEFT JOIN M_POSITION_LEVEL F ON F.POS_LEVEL_ID = B.PER_POSITION_LVL
 				WHERE A.USR_USERNAME = '".$_SESSION['EWT_USERNAME']."' ";
-$q = dbdpis::execute($chk_per_type);
-$chk = dbdpis::Fetch($q);
-//per_id fix ไว้ก่อน
-if(!$_GET["Page"]){
-	$_GET["Page"] = 1;
-}
 $data_request = array(
 						// "per_id" => '6848',
 						"username" => $_SESSION['EWT_USERNAME'],
@@ -319,7 +335,7 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 					$chk_app_room_1 = dbdpis::Fetch($q_app_room_1);
 					$app1_dep_room_name = $short_dep[$chk_app_room_1["DEP_LV2_ID"]];// ผ่าน (ตำแหน่งย่อ) 
 					
-					$p10 .= '<a style="width:80px;text-align:center;" type="button" class=" " onclick="window.open('."'".'FILE_PDF/booking_room_report_pdf.php?CB_PER_ID='.$value['REQ_NAME'].'&CB_AREA='.$value['ROOM_NAME'].'&CB_MEMBER='.$value['MEETING_NUM_PP'].'&CB_OBJ='.$value['MEETING_TOPIC'].'&MEETING_DATE='.$value['MEETING_DATE2'].'&MEETING_EDATE='.$value['MEETING_EDATE2'].'&STIME='.$value['STIME'].'&ETIME='.$value['ETIME'].'&REQ_TEL='.$value['REQ_TEL'].'&CAR_REGISTER='.$get_CAR_REGISTER.'&DEP_NAME1='.$chk['DEP_NAME1'].'&DEP_NAME2='.$chk['DEP_NAME2'].'&POS_NAME='.$chk['POS_NAME'].'&POS_LEVEL_NAME='.$chk['POS_LEVEL_NAME'].'&APP_1='.$app_room_1.'&APP_1_NAME='.$app1_dep_room_name.'&APP_2_NAME='.$short_dep[$value["DEP_KEEPER_SSO"]].'&APP_2='.$app_room_2.'&MEETINH_CHAIRMAN='.$value['MEETINH_CHAIRMAN'].'&WFR_ID='.$value["WFR_ID"].'&CB_RECORD='.$value['REQ_DATE_OG'].' '."'".', '."'".'_blank'."'".',);" > download</a>';
+					$p10 .= '<a style="width:80px;text-align:center;" type="button" class=" " onclick="window.open('."'".'FILE_PDF/booking_room_report_pdf.php?CB_PER_ID='.$value['REQ_NAME'].'&CB_AREA='.$value['ROOM_NAME'].'&CB_MEMBER='.$value['MEETING_NUM_PP'].'&CB_OBJ='.$value['MEETING_TOPIC'].'&MEETING_DATE='.$value['MEETING_DATE2'].'&MEETING_EDATE='.$value['MEETING_EDATE2'].'&STIME='.$value['STIME'].'&ETIME='.$value['ETIME'].'&REQ_TEL='.$value['REQ_TEL'].'&CAR_REGISTER='.$get_CAR_REGISTER.'&DEP_NAME1='.$chk['DEP_NAME1'].'&DEP_NAME2='.$chk['DEP_NAME2'].'&POS_NAME='.$chk['POS_NAME'].'&APP_1='.$app_room_1.'&APP_1_NAME='.$app1_dep_room_name.'&APP_2_NAME='.$short_dep[$value["DEP_KEEPER_SSO"]].'&APP_2='.$app_room_2.'&MEETINH_CHAIRMAN='.$value['MEETINH_CHAIRMAN'].'&WFR_ID='.$value["WFR_ID"].'&CB_RECORD='.$value['REQ_DATE_OG'].' '."'".', '."'".'_blank'."'".',);" > download</a>';
 					
 					$img2 = '<img src="images/'.$get_ROOM_PIC_NAME.'" class="d-block w-100" alt="...">';
 					
@@ -468,7 +484,7 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 					
 					$app1_dep_name = $short_dep[$chk_app_1["DEP_LV2_ID"]];// ผ่าน (ตำแหน่งย่อ)
 					
-					$p10 .= '<a style="width:80px;text-align:center;" type="button" class=" " onclick="window.open('."'".'FILE_PDF/booking_car_report_pdf.php?CB_PER_ID='.$get_CB_PER_ID.'&CB_AREA='.$value['ROOM_NAME'].'&CB_MEMBER='.$value['MEETING_NUM_PP'].'&CB_OBJ='.$value['MEETING_TOPIC'].'&MEETING_DATE='.$value['MEETING_DATE2'].'&MEETING_EDATE='.$value['MEETING_EDATE2'].'&STIME='.$value['STIME'].'&ETIME='.$value['ETIME'].'&REQ_TEL='.$value['REQ_TEL'].'&DEP_NAME1='.$chk['DEP_NAME1'].'&DEP_NAME2='.$chk['DEP_NAME2'].'&POS_NAME='.$chk['POS_NAME'].'&POS_LEVEL_NAME='.$chk['POS_LEVEL_NAME'].'&APP_1='.$app_1.'&APP_1_NAME='.$app1_dep_name.'&APP_2='.$app_2.'&CAR_REGISTER='.$get_CAR_REGISTER2.'&CB_RECORD='.$getRequestBookingCarDetail['Data'][0]['CB_RECORD'].'&W_CAR_MILEAGE='.$getRequestBookingCarDetail['Data'][0]['W_CAR_MILEAGE'].'&R_CAR_MILEAGE='.$getRequestBookingCarDetail['Data'][0]['R_CAR_MILEAGE'].'&CS_PER_NAME='.$getRequestBookingCarDetail['Data'][0]['ALLOCATE_NAME'].' '."'".', '."'".'_blank'."'".',);" > download</a>';
+					$p10 .= '<a style="width:80px;text-align:center;" type="button" class=" " onclick="window.open('."'".'FILE_PDF/booking_car_report_pdf.php?CB_PER_ID='.$get_CB_PER_ID.'&CB_AREA='.$value['ROOM_NAME'].'&CB_MEMBER='.$value['MEETING_NUM_PP'].'&CB_OBJ='.$value['MEETING_TOPIC'].'&MEETING_DATE='.$value['MEETING_DATE2'].'&MEETING_EDATE='.$value['MEETING_EDATE2'].'&STIME='.$value['STIME'].'&ETIME='.$value['ETIME'].'&REQ_TEL='.$value['REQ_TEL'].'&DEP_NAME1='.$chk['DEP_NAME1'].'&DEP_NAME2='.$chk['DEP_NAME2'].'&POS_NAME='.$chk['POS_NAME'].'&POS_LEVEL_NAME='.$chk2['POS_LEVEL_NAME'].'&APP_1='.$app_1.'&APP_1_NAME='.$app1_dep_name.'&APP_2='.$app_2.'&CAR_REGISTER='.$get_CAR_REGISTER2.'&CB_RECORD='.$getRequestBookingCarDetail['Data'][0]['CB_RECORD'].'&W_CAR_MILEAGE='.$getRequestBookingCarDetail['Data'][0]['W_CAR_MILEAGE'].'&R_CAR_MILEAGE='.$getRequestBookingCarDetail['Data'][0]['R_CAR_MILEAGE'].'&CS_PER_NAME='.$getRequestBookingCarDetail['Data'][0]['ALLOCATE_NAME'].' '."'".', '."'".'_blank'."'".',);" > download</a>';
 					
 					if($get_CAR_PIC_NAME){
 						$img2 = '<img src="images/'.$get_CAR_PIC_NAME.'" class="d-block w-100" alt="...">';
