@@ -213,7 +213,7 @@ p{
 	</div>
 	<div class="form-group row">
 		<div id="MAF_PER_NAME_BSF_AREA" class="col-md-2 ">ผู้ทำแบบประเมิน</div>
-		<div id="MAF_PER_NAME_BSF_AREA" class="col-md-3 wf-left"><p>เชิดศักดิ์(ทดสอบ) คำม่วง</p><small id="DUP_MAF_PER_NAME_ALERT" class="form-text text-danger" style="display:none"></small></div>
+		<div id="MAF_PER_NAME_BSF_AREA" class="col-md-3 wf-left"><p><?php echo $_SESSION['EWT_NAME']." ".$_SESSION['EWT_SURNAME'];?></p><small id="DUP_MAF_PER_NAME_ALERT" class="form-text text-danger" style="display:none"></small></div>
 		<!--<div id="MAF_POS_NAME_BSF_AREA" class="col-md-2 ">ตำแหน่งผู้ทำแบบประเมิน</div>
 		<div id="MAF_POS_NAME_BSF_AREA" class="col-md-3 wf-left"><input type="text" name="MAF_POS_NAME" id="MAF_POS_NAME" class="form-control" value="เลขานุการ" readonly="true"><small id="DUP_MAF_POS_NAME_ALERT" class="form-text text-danger" style="display:none"></small></div>-->
 	</div>
