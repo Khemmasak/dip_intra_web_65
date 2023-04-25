@@ -227,7 +227,7 @@ $getMaxCarBook = callAPI('getMaxCarBook');
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
                     <h4 class="ml-2 mb-0 h2-color">* จำนวนผู้เดินทาง</h4>
-                    <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล จำนวนผู้เดินทาง')" oninput="this.setCustomValidity('')" min="1" id="GUEST" name="GUEST" class="form-control" type="number" placeholder="กรุณากรอกจำนวนผู้เข้าร่วม">
+                    <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล จำนวนผู้เดินทาง')" oninput="this.setCustomValidity('')" min="1" max="11" id="GUEST" name="GUEST" class="form-control" type="number" placeholder="กรุณากรอกจำนวนผู้เข้าร่วม">
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
                     <h4 class="ml-2 mb-0 h2-color">* หมายเลขโทรศัพท์</h4>
@@ -432,7 +432,7 @@ $('#PROVINCE_CODE').on('change', function() {
 										'success'
 										
 									).then(function() {
-												// สำหรับส่งไฟล์
+										// สำหรับส่งไฟล์
 												var ins = $('#FILEUPLOAD').prop("files").length;
 												if(ins > 0){
 												$.ajax({
