@@ -310,7 +310,12 @@ $getMaxCarBook = callAPI('getMaxCarBook');
 			alert('กรุณากรอกเวลาสิ้นสุดให้มากกว่าเวลาเริ่มต้น');
 		}
 	});
-
+	$("#GUEST").change(function(){
+		if ($("#GUEST").val() > 11) {
+	  $("#GUEST").val('');
+	  alert("กรุณากรอกจำนวนผู้เดินทางให้ถูกต้อง");
+	}
+	});
 
 	let i = 1;
 	$("#rowAdder").click(function () {
