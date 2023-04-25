@@ -61,8 +61,10 @@ if($getCarList['ResponseCode']['ResCode'] == '000'){
 	$CAR_PIC_NAME = $getCarList['Data']['CAR_PIC_NAME'];
 }
 
+$getMaxCarBook = callAPI('getMaxCarBook');
+
 // echo '<br><br><br><br><br><br><pre>';
- // print_r($getPersonList['Data']);
+ // print_r($getMaxCarBook['Data']['WFR_MAX']);
  // echo '</pre>';
  // echo '<br><br><br><br><br><pre>';
  // print_r($chk['DEP_LV1_ID']);
@@ -138,6 +140,7 @@ if($getCarList['ResponseCode']['ResCode'] == '000'){
 		<input type="hidden" name="REQUEST_CAR_DETAIL" value="<?php echo $NATURE_ID." ทะเบียน".$CAR_REGISTER;?>">
 		<input type="hidden" name="USR_USERNAME" value="<?php echo $_SESSION['EWT_USERNAME'];?>">
 		<input type="hidden" name="DEP_NAME1" value="<?php echo $chk['DEP_NAME1'];?>">
+		<input type="hidden" name="WFR_MAX" value="<?php echo $getMaxCarBook['Data']['WFR_MAX'];?>">
 			<div class="form-row align-items-center">
 				<div class="latest-post-media ">
                     <a href="#" class="latest-post-img">
@@ -429,7 +432,27 @@ $('#PROVINCE_CODE').on('change', function() {
 										'success'
 										
 									).then(function() {
-										window.location = "Booking_car.php";
+												// สำหรับส่งไฟล์
+												var ins = $('#FILEUPLOAD').prop("files").length;
+												if(ins > 0){
+												$.ajax({
+													url:'save/insert_car_booking_file.php', //ให้ระบุชื่อไฟล์ PHP ที่เราจะส่งค่าไป
+													type:'post',
+													data:fd, //ข้อมูลจาก input ที่ส่งเข้าไปที่ PHP
+													contentType: false,
+													processData: false,
+													success:function(response){ //หากทำงานสำเร็จ จะรับค่ามาจาก JSON หลังจากนั้นก็ให้ทำงานตามที่เรากำหนดได้
+														console.log(response);
+														if(response != 0){
+															// $("#img").attr("src",response);
+															// $('.preview img').show();
+														}else{
+															// alert('ส่งไฟล์ไม่สำเร็จ');
+														}
+													}
+												});
+												}
+										window.location = "Booking_status.php";
 									});
 								} else {
 									Swal.fire(
@@ -443,7 +466,7 @@ $('#PROVINCE_CODE').on('change', function() {
 						});
 						
 						
-						// สำหรับส่งไฟล์
+						/* // สำหรับส่งไฟล์
 						var ins = $('#FILEUPLOAD').prop("files").length;
 						if(ins > 0){
 						$.ajax({
@@ -462,7 +485,7 @@ $('#PROVINCE_CODE').on('change', function() {
 								}
 							}
 						});
-						} 
+						} */
 						
 					}
 				})
