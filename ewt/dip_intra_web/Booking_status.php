@@ -261,6 +261,8 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 				);
 				$updateStatusPic = callAPI('updateStatusPic',$status_request);
 					$p1 = ""; $p2 = ""; $p3 = ""; $p4 = ""; $p5 = ""; $p6 = ""; $p7 = "";
+					
+######## จองห้องประชุม ########	
 				if($value['TYPE']==1){
 					$request_type = "จองห้องประชุม";
 					// $img = "images/2meet.png";
@@ -335,7 +337,9 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 							if($value['CANCEL_STATUS1'] == '9' || $value['CANCEL_STATUS1'] == '1'){ // ขอยกเลิกแล้ว
 							$btn_cancel = '<p style="color:orange;">รอพิจารณายกเลิก</p>';
 							}else{ // ยังไม่ขอยกเลิก
-							$btn_cancel = "<button  style='height:30px;padding:1px 10px 1px 10px;font-size: 14px;' class='btn btn-warning btn-mini' data-toggle='tooltip' title='ขอยกเลิกการจอง'  id='btn_cancel' name='btn_cancel'  onclick='cancel_list(".$value['WFR_ID'].")'  value='".$value['WFR_ID']."'>ยกเลิก</button>";
+							## ถ้าจะเปิดยกเลิก เปิดตรงนี้ ##
+							/* $btn_cancel = "<button  style='height:30px;padding:1px 10px 1px 10px;font-size: 14px;' class='btn btn-warning btn-mini' data-toggle='tooltip' title='ขอยกเลิกการจอง'  id='btn_cancel' name='btn_cancel'  onclick='cancel_list(".$value['WFR_ID'].")'  value='".$value['WFR_ID']."'>ยกเลิก</button>"; */
+							$btn_cancel = '';
 							}
 						}
 						
@@ -358,7 +362,9 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 							if($value['CANCEL_STATUS1'] == '9' || $value['CANCEL_STATUS1'] == '1'){ // ขอยกเลิกแล้ว
 							$btn_cancel = '<p style="color:orange;">รอพิจารณายกเลิก</p>';
 							}else{ // ยังไม่ขอยกเลิก
-							$btn_cancel = "<button  style='height:30px;padding:1px 10px 1px 10px;font-size: 14px;' class='btn btn-warning btn-mini' data-toggle='tooltip' title='ขอยกเลิกการจอง'  id='btn_cancel' name='btn_cancel'  onclick='cancel_list(".$value['WFR_ID'].")'  value='".$value['WFR_ID']."'>ยกเลิก</button>";
+							## ถ้าจะเปิดยกเลิก เปิดตรงนี้ ##
+							/* $btn_cancel = "<button  style='height:30px;padding:1px 10px 1px 10px;font-size: 14px;' class='btn btn-warning btn-mini' data-toggle='tooltip' title='ขอยกเลิกการจอง'  id='btn_cancel' name='btn_cancel'  onclick='cancel_list(".$value['WFR_ID'].")'  value='".$value['WFR_ID']."'>ยกเลิก</button>"; */
+							$btn_cancel = '';
 							}
 						}
 					}else if ($value['APPROVE_STATUS1'] == 1 && $value['APPROVE_STATUS2'] == 0 && $value['APPROVE_STATUS3'] == 0){
@@ -366,11 +372,11 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 						$btn_del = '';
 						$btn_cancel = '';
 						$btn_estimate = '';
-						$btn_del = "<button style='height:30px;padding:1px 10px 1px 10px;font-size: 14px;' class='btn btn-danger btn-mini' data-toggle='tooltip' title='สามารถลบได้ทันที หากผู้ดูแลห้องยังไม่ได้พิจารณา'  id='btn_del' name='btn_del' onclick='del_list(".$value['WFR_ID'].")' value='".$value['WFR_ID']."'>ลบ</button>";
+						$btn_del = "<button style='height:30px;padding:1px 10px 1px 10px;font-size: 14px;' class='btn btn-danger btn-mini' data-toggle='tooltip' title='สามารถลบได้ทันที หากผู้ดูแลห้องยังไม่ได้พิจารณา'  id='btn_del' name='btn_del' onclick='del_list(".$value['WFR_ID'].",6682)' value='".$value['WFR_ID']."'>ลบ</button>";
 						// $btn_cancel = "<button  style='height:30px;padding:1px 10px 1px 10px;' class='btn btn-warning btn-mini' data-toggle='tooltip' title='ขอยกเลิกการจอง'  id='btn_cancel' name='btn_cancel' value='".$value['WFR_ID']."'>ยกเลิก</button>";
 					}else if ($value['APPROVE_STATUS1'] == 0 && $value['APPROVE_STATUS2'] == 0 && $value['APPROVE_STATUS3'] == 0){
 						$status = "<font color='orange'>รอการผ่านความเห็นชอบ</font>";
-						$btn_del = "<button  style='height:30px;padding:1px 10px 1px 10px;font-size: 14px;' class='btn btn-danger btn-mini' data-toggle='tooltip' title='สามารถลบได้ทันที หากผอ.ของท่านยังไม่ได้พิจารณา'  id='btn_del' name='btn_del'  onclick='del_list(".$value['WFR_ID'].")' value='".$value['WFR_ID']."'>ลบ</button>";
+						$btn_del = "<button  style='height:30px;padding:1px 10px 1px 10px;font-size: 14px;' class='btn btn-danger btn-mini' data-toggle='tooltip' title='สามารถลบได้ทันที หากผอ.ของท่านยังไม่ได้พิจารณา'  id='btn_del' name='btn_del'  onclick='del_list(".$value['WFR_ID'].",6682)' value='".$value['WFR_ID']."'>ลบ</button>";
 						$btn_cancel = '';
 						$btn_estimate = '';
 					} 
@@ -385,6 +391,7 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 						$btn_estimate = '';
 					}
 					
+######## จองยานพาหนะ ########	
 				}else if($value['TYPE']==2){
 					$request_type = "จองยานพาหนะ";
 					// $img = "images/2car.png";
@@ -491,6 +498,7 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 						$status = "<font color='orange'>รอการอนุมัติ/อนุญาต</font>";
 					}else if($value['APPROVE_STATUS1']==0 && $value['APPROVE_STATUS2']==0){
 						$status = "<font color='orange'>รอการผ่านความเห็นชอบ</font>";
+						$btn_del = "<button style='height:30px;padding:1px 10px 1px 10px;font-size: 14px;' class='btn btn-danger btn-mini' data-toggle='tooltip' title='สามารถลบได้ทันที หากยังไม่ผ่านความเห็นชอบ'  id='btn_del' name='btn_del' onclick='del_list(".$value['WFR_ID'].",7047)' value='".$value['WFR_ID']."'>ลบ</button>";
 					}
 					if ($value['WF_DET_STEP'] == 2482){
 						$status = "<font color='red'>ไม่ผ่านการอนุมัติ</font>";
@@ -506,7 +514,7 @@ $getRequestBookingAllList = callAPI('getRequestBookingAllList', $data_request);
 						$btn_estimate = '';
 					}
 					
-					
+######## ขอหนังสือรับรับรอง ########		
 				}else if($value['TYPE']==3){
 					$request_type = "ขอหนังสือรับรับรอง";
 					// $img = "images/2certificate.png";
@@ -769,7 +777,7 @@ if($Num_Rows<=$Per_Page)
 				<a class="page-link" href="Booking_status.php?Page=<?php echo $i;?>&Per_Page=<?php echo $Per_Page;?>&Num_Rows=<?php echo $Num_Rows;?>&SYSTEM=<?php echo $_GET["SYSTEM"];?>&STATUS=<?php echo $_GET["STATUS"];?>"><?php echo $i;?></a>
 			</li>
 			<?php }?>
-			<?php if($Page!=$Num_Pages){?>
+			<?php if($Page!=$Num_Pages){?> 
 			<li class="page-item">
 				<a class="page-link" href="Booking_status.php?Page=<?php echo $Next_Page;?>&Per_Page=<?php echo $Per_Page;?>&Num_Rows=<?php echo $Num_Rows;?>&SYSTEM=<?php echo $_GET["SYSTEM"];?>&STATUS=<?php echo $_GET["STATUS"];?>"><i class="fa fa-caret-right icon_fa_right"></i></a>
 			</li>
@@ -826,8 +834,7 @@ function showFont(wfr,type) {
 	
 } */
 
-
-function del_list(wfr_id) {//delete_room_booking
+function del_list(wfr_id,wf_main_id) {//delete_room_booking
 	
 	// var wfr_id
 	// wfr_id = $( "#btn_del" ).val();
@@ -847,7 +854,7 @@ function del_list(wfr_id) {//delete_room_booking
 					$.ajax({
 						url: 'save/delete_room_booking.php',
 						type: 'POST',
-						data: {wfr_id:wfr_id,wf_main_id:'6682',proc:'del'} ,
+						data: {wfr_id:wfr_id,wf_main_id:wf_main_id,proc:'del'} ,
 						success: function(data) {
 							console.log(data);
 
