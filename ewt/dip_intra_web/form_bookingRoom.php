@@ -160,11 +160,11 @@ $getMeetingToolAsset = callAPI('getMeetingToolAsset',$data_request_room_id);//�
 			</div><br>
             <div class="form-row align-items-center">
                 <div class="col-sm-6 my-1">
-                    <h4 class="h2-color ml-2">หัวข้อการประชุม :</h4>
+                    <h4 class="h2-color ml-2">* หัวข้อการประชุม :</h4>
                     <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล หัวข้อการประชุม')" oninput="this.setCustomValidity('')" id="MEETING_TOPIC" name="MEETING_TOPIC" class="form-control" type="text" placeholder="กรุณากรอกหัวข้อการประชุม">
                 </div>
                 <div class="col-sm-6 my-1">
-                    <h4 class="h2-color ml-2">ประธานในที่ประชุม :</h4>
+                    <h4 class="h2-color ml-2">* ประธานในที่ประชุม :</h4>
                     <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล ประธานในที่ประชุม')" oninput="this.setCustomValidity('')" id="MEETINH_CHAIRMAN" name="MEETINH_CHAIRMAN" class="form-control" type="text" placeholder="กรุณากรอกชื่อประธานในที่ประชุม">
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-6 ">
@@ -190,16 +190,16 @@ $getMeetingToolAsset = callAPI('getMeetingToolAsset',$data_request_room_id);//�
                     <!--<input id="TIME_END" name="TIME_END" class="form-control" type="text" placeholder="กรุณากรอกเวลากลับ">-->
                 </div>
                 <div class="col-sm-6 my-1">
-                    <h4 class="h2-color ml-2">จำนวนผู้เข้าร่วม :</h4>
+                    <h4 class="h2-color ml-2">* จำนวนผู้เข้าร่วม :</h4>
                     <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล จำนวนผู้เข้าร่วม')" oninput="this.setCustomValidity('')" id="GUEST" name="GUEST" class="form-control" type="number" placeholder="กรุณากรอกจำนวนผู้เข้าร่วม"
 					onChange="check_meet(<?php echo $_GET['meeting_id'];?>,'status');">
                 </div>
                 <div class="col-sm-6 my-1">
-                    <h4 class="h2-color ml-2">หมายเลขโทรศัพท์ :</h4>
+                    <h4 class="h2-color ml-2">* หมายเลขโทรศัพท์ :</h4>
                     <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล หมายเลขโทรศัพท์')" oninput="this.setCustomValidity('')" id="TEL" name="TEL" class="form-control" type="tel" placeholder="XXX-XXX-XXXX" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10"/>
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
-                    <h4 class="ml-2 mb-0 h2-color">ผู้ผ่านความเห็นชอบ</h4>
+                    <h4 class="ml-2 mb-0 h2-color">* ผู้ผ่านความเห็นชอบ</h4>
 					<select required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล ผู้ผ่านความเห็นชอบ')" oninput="this.setCustomValidity('')" id="PER_APPROVE_ID" name="PER_APPROVE_ID" class=" form-control">
                         <option value="" selected>เลือกผู้ผ่านการเห็นชอบ</option>
                         <?php 
@@ -217,7 +217,7 @@ $getMeetingToolAsset = callAPI('getMeetingToolAsset',$data_request_room_id);//�
                     <h5 class="ml-2 mb-0 h2-color"></h5>
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
-                    <h5 class="ml-2 mb-0 h2-color">หมายเหตุ</h5>
+                    <h4 class="ml-2 mb-0 h2-color">หมายเหตุ</h4>
                     <input oninput="this.setCustomValidity('')" id="NOTE" name="NOTE" class="form-control" type="text-area" >
                 </div>
             </div>

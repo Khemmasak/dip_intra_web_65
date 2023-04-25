@@ -145,7 +145,7 @@ if($getCarList['ResponseCode']['ResCode'] == '000'){
                     </a>
                 </div>
 			</div><br>
-            <h4 class="h2-color">วัตถุประสงค์ในการใช้ยานพาหนะ :</h4>
+            <h4 class="h2-color">* วัตถุประสงค์ในการใช้ยานพาหนะ :</h4>
             <div class="form-row align-items-center">
                 <div class="col-sm-4 my-1">
                     <select required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล วัตถุประสงค์ในการใช้ยานพาหนะ')" oninput="this.setCustomValidity('')" id="OBJECTIVE" name="OBJECTIVE" class="form-control"  >
@@ -158,7 +158,7 @@ if($getCarList['ResponseCode']['ResCode'] == '000'){
                     </select>
                 </div>
             </div>
-            <h4 class="h2-color">จุดหมายปลายทาง :</h4>
+            <h4 class="h2-color">* จุดหมายปลายทาง :</h4>
             <div id="inputboxes" class="form-row align-items-center">
                 <div class="col-sm-3 my-1">
                     <select required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล เลือกพื้นที่')" oninput="this.setCustomValidity('')" id="PROVINCE_CODE" name="PROVINCE_CODE[]" class="form-control">
@@ -191,9 +191,9 @@ if($getCarList['ResponseCode']['ResCode'] == '000'){
      </div>-->
 
             <div class="form-group">
-                <h4 class="h2-color">*กรณีเดินทางไปต่างจังหวัด :</h4>
-                <input required type="file" multiple class="form-control-file" name="FILEUPLOAD[]" id="FILEUPLOAD">
-                <label class=" font-small" style="color: #ff0000;"> * ไฟล์ที่อนุญาตให้แนบได้ pdf,png,jpg ขนาดไฟล์ไม่เกิน 10 MB.</label>
+                <h4 class="h2-color">กรณีเดินทางไปต่างจังหวัด :</h4>
+                <input required type="file" class="form-control-file" name="FILEUPLOAD[]" id="FILEUPLOAD" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx"><!--multiple-->
+                <label class=" font-small" style="color: #ff0000;"> * ไฟล์ที่อนุญาตให้แนบได้ pdf,png,jpg,doc ขนาดไฟล์ไม่เกิน 10 MB.</label>
 				<!--<input type="hidden" name="file" value="">
 				<input type="hidden" name="filename" value="<?php echo $_FILES['name'];?>">
 				<input type="hidden" name="tmp_name" value="<?php echo $_FILES['tmp_name'];?>">-->
@@ -205,33 +205,33 @@ if($getCarList['ResponseCode']['ResCode'] == '000'){
         <!--<form>-->
             <div class="form-row align-items-center">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-6 ">
-                    <h5 class="ml-2 mb-0 h2-color"><i class="fa fa-calendar "></i> วันเริ่มต้น</h5>
+                    <h4 class="ml-2 mb-0 h2-color"><i class="fa fa-calendar "></i> วันเริ่มต้น</h4>
                     <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล วันเริ่มต้น')" oninput="this.setCustomValidity('')" class="ml-2 pb-1 " type="date" id="DATE_START" name="DATE_START" value="dd/mm/yyy" min="<?php echo date('Y-m-d');?>" placeholder="dd/mm/yyyy" pattern="\d{1,2}/\d{1,2}/\d{4}">
                 </div>
                 <div class=" col-lg-3 col-md-3 col-sm-6  col-6 ">
-                    <h5 class="ml-2 mb-0 h2-color"><i class="fa fa-calendar"></i> วันที่สิ้นสุด</h5>
+                    <h4 class="ml-2 mb-0 h2-color"><i class="fa fa-calendar"></i> วันที่สิ้นสุด</h4>
                     <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล วันที่สิ้นสุด')" oninput="this.setCustomValidity('')" class=" ml-2 pb-1 " type="date" id="DATE_END" name="DATE_END" value="dd/mm/yyy">
                 </div>
                 <div class=" col-lg-3 col-md-3 col-sm-6 col-12 ">
-                    <h5 class="ml-2 mb-0 h2-color"><i class="fa fa-clock"></i> เวลาเดินทางไป</h5>
+                    <h4 class="ml-2 mb-0 h2-color"><i class="fa fa-clock"></i> เวลาเดินทางไป</h4>
 					<input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล เวลาเดินทางไป')" oninput="this.setCustomValidity('')" type="time" class="form-control timeFormat" id="TIME_START" name="TIME_START" placeholder = "__:__" onChange="check_meet(<?php echo $_GET['car_id'];?>,'status');" />
                     <!--<input required class="form-control" type="text" id="TIME_START" name="TIME_START" placeholder="กรุณากรอกเวลาไป" >-->
                 </div>
                 <div class=" col-lg-3 col-md-3 col-sm-6 col-12 ">
-                    <h5 class="ml-2 mb-0 h2-color"><i class="fa fa-clock"></i> เวลาเดินทางกลับ</h5>
+                    <h4 class="ml-2 mb-0 h2-color"><i class="fa fa-clock"></i> เวลาเดินทางกลับ</h4>
 					<input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล เวลาเดินทางกลับ')" oninput="this.setCustomValidity('')" type="time" class="form-control timeFormat" id="TIME_END" name="TIME_END" placeholder = "__:__"  onChange="check_meet(<?php echo $_GET['car_id'];?>,'status');" />
                     <!--<input required class="form-control" type="text" id="TIME_END" name="TIME_END" placeholder="กรุณากรอกเวลากลับ">-->
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
-                    <h5 class="ml-2 mb-0 h2-color">จำนวนผู้เดินทาง</h5>
+                    <h4 class="ml-2 mb-0 h2-color">* จำนวนผู้เดินทาง</h4>
                     <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล จำนวนผู้เดินทาง')" oninput="this.setCustomValidity('')" min="1" id="GUEST" name="GUEST" class="form-control" type="number" placeholder="กรุณากรอกจำนวนผู้เข้าร่วม">
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
-                    <h5 class="ml-2 mb-0 h2-color">หมายเลขโทรศัพท์</h5>
+                    <h4 class="ml-2 mb-0 h2-color">* หมายเลขโทรศัพท์</h4>
                     <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล หมายเลขโทรศัพท์')" oninput="this.setCustomValidity('')" id="TEL" name="TEL" class="form-control" type="text" placeholder="XXX-XXX-XXXX" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
-                    <h5 class="ml-2 mb-0 h2-color">ผู้ผ่านความเห็นชอบ</h5>
+                    <h4 class="ml-2 mb-0 h2-color">* ผู้ผ่านความเห็นชอบ</h4>
                     <select required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล ผู้ผ่านความเห็นชอบ')" oninput="this.setCustomValidity('')" id="PER_APPROVE_ID" name="PER_APPROVE_ID" class=" form-control">
                         <option value="" selected>เลือกผู้ผ่านการเห็นชอบ</option>
                         <?php 
@@ -243,10 +243,10 @@ if($getCarList['ResponseCode']['ResCode'] == '000'){
 
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
-                    <h5 class="ml-2 mb-0 h2-color"></h5>
+                    <h4 class="ml-2 mb-0 h2-color"></h4>
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
-                    <h5 class="ml-2 mb-0 h2-color">หมายเหตุ</h5>
+                    <h4 class="ml-2 mb-0 h2-color">หมายเหตุ</h4>
                     <input oninput="this.setCustomValidity('')" id="NOTE" name="NOTE" class="form-control" type="text-area" >
                 </div>
             </div>
