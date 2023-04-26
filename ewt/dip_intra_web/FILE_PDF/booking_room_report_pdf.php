@@ -134,7 +134,7 @@ ob_start();
 	<tr>
 		<td align="right" colspan="10" style="font-size:15pt;">
 			<!--<strong><?php echo get_TH_D_M_Y($_GET['CB_RECORD']);?></strong>-->
-			<strong><?php echo get_TH_D_M_Y('2023-04-26');?></strong>
+			<strong><?php echo get_TH_D_M_Y(date('Y-m-d'));?></strong>
 		</td>
 	</tr>
 	<tr>

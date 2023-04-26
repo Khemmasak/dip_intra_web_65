@@ -125,7 +125,8 @@ ob_start();
 	</tr>
 	<tr>
 		<td align="right" colspan="10" style="font-size:15pt;">
-			<strong><?php echo get_TH_D_M_Y($_GET['CB_RECORD']);?></strong>
+			<!--<strong><?php echo get_TH_D_M_Y($_GET['CB_RECORD']);?></strong>-->
+			<strong><?php echo get_TH_D_M_Y(date('Y-m-d'));?></strong>
 		</td>
 	</tr>
 	<tr>
