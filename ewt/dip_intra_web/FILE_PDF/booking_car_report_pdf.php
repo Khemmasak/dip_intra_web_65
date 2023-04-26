@@ -125,8 +125,7 @@ ob_start();
 	</tr>
 	<tr>
 		<td align="right" colspan="10" style="font-size:15pt;">
-			<!--<strong><?php echo get_TH_D_M_Y($_GET['CB_RECORD']);?></strong>-->
-			<strong><?php echo get_TH_D_M_Y(date('Y-m-d'));?></strong>
+			<strong><?php echo get_TH_D_M_Y($_GET['CB_RECORD']);?></strong>
 		</td>
 	</tr>
 	<tr>
@@ -141,7 +140,7 @@ ob_start();
 	<tr>
 		<td align="left" colspan="10" style="font-size:14pt;">
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>ข้าพเจ้า</strong>&nbsp;<?php echo $_GET['CB_PER_ID'] ; ?>&nbsp;
-			<strong>ตำแหน่ง</strong>&nbsp;<?php echo $_GET['POS_NAME']." ".$_GET['POS_LEVEL_NAME'] ; ?>
+			<strong>ตำแหน่ง</strong>&nbsp;<?php echo $_GET['POS_NAME']; ?>
 			<strong>สังกัด</strong>&nbsp;<?php echo $_GET['DEP_NAME1'] ; ?>
 		</td>
 	</tr>
