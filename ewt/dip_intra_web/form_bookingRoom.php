@@ -28,7 +28,10 @@ $chk_per_type = "SELECT B.*, B.DEP_LV1_ID, C.DEP_NAME AS DEP_NAME1, B.DEP_LV2_ID
 $q = dbdpis::execute($chk_per_type);
 $chk = dbdpis::Fetch($q);
 
-$getMeetingToolAddList = callAPI('getMeetingToolAddList');//อุปกรณ์เพิ่มเติม
+$data_request_meeting_id = array(
+	"meeting_id" => $_GET["meeting_id"]
+);
+$getMeetingToolAddList = callAPI('getMeetingToolAddList',$data_request_meeting_id);//อุปกรณ์เพิ่มเติม
 
 $data_request_type = array(
 	"type" => 'room',
