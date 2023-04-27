@@ -257,6 +257,8 @@ switch ($proc) {
 										$_SESSION['EWT_USERNAME'] = $sso_user['gen_user'];
 										$_SESSION['EWT_NAME'] = $sso_user['name_thai'];
 										$_SESSION['EWT_SURNAME'] = $sso_user['surname_thai'];
+										$_SESSION['EWT_USRID'] = $data2['data']['data']['usrId'];
+										$_SESSION['EWT_Idcard'] = $data2['data']['data']['idCard'];
 										$_SESSION['EWT_TOKEN'] = $data['data']['authorization']['Token'];
 										//authentication
 										$_SESSION['EWT_SESSID'] = "Y";
@@ -290,6 +292,31 @@ switch ($proc) {
 								}
 
 							} else {
+								$curl2 = curl_init();
+								curl_setopt_array(
+									$curl2,
+									array(
+										CURLOPT_URL => 'https://portal.diprom.go.th/DIP_SSO/api/public/Authen',
+										CURLOPT_RETURNTRANSFER => true,
+										CURLOPT_SSL_VERIFYPEER => false,
+										CURLOPT_ENCODING => '',
+										CURLOPT_MAXREDIRS => 10,
+										CURLOPT_TIMEOUT => 0,
+										CURLOPT_FOLLOWLOCATION => true,
+										CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+										CURLOPT_CUSTOMREQUEST => 'POST',
+										CURLOPT_HTTPHEADER => array(
+											'Authorization: Bearer ' . $data['data']['authorization']['Token'],
+											'Content-Type: application/json',
+											'Content-Length: 0'
+										)
+									)
+								);
+
+								$response2 = curl_exec($curl2);
+								$err2 = curl_error($curl2);
+								curl_close($curl2);
+								$data2 = json_decode($response2, true);
 
 								$_SESSION["EWT_ARTICLE_TAP_ACTIVE"] = 0;
 								$_SESSION['EWT_TIMEOUT'] = time();
@@ -297,6 +324,8 @@ switch ($proc) {
 								$_SESSION['EWT_USERNAME'] = $a_user['gen_user'];
 								$_SESSION['EWT_NAME'] = $a_user['name_thai'];
 								$_SESSION['EWT_SURNAME'] = $a_user['surname_thai'];
+								$_SESSION['EWT_USRID'] = $data2['data']['data']['usrId'];
+								$_SESSION['EWT_Idcard'] = $data2['data']['data']['idCard'];
 								$_SESSION['EWT_TOKEN'] = $data['data']['authorization']['Token'];
 								//authentication
 								$_SESSION['EWT_SESSID'] = "Y";
