@@ -5,11 +5,12 @@ $res = db::getFetch($sql);
 dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_ROOT_PASSWORD, SSO_DB_NAME, SSO_CHAR_SET);
 $fname = $_SESSION['EWT_NAME'];
 $lname = $_SESSION['EWT_SURNAME'];
+$idCard = $_SESSION['EWT_Idcard'];
+$UsrId = $_SESSION['EWT_USRID'];
 $sql_profile = "SELECT * FROM M_PER_PROFILE
 LEFT JOIN USR_MAIN ON M_PER_PROFILE.PER_IDCARD = USR_MAIN.USR_OPTION3
 WHERE
-	M_PER_PROFILE.PER_NAME_TH LIKE '%".$fname."%'
-AND M_PER_PROFILE.PER_LASTNAME_TH LIKE '%".$lname."%'
+M_PER_PROFILE.PER_IDCARD = '".$idCard."'
 ";
 $result = dbdpis::getFetch($sql_profile);
 // echo "<pre>";
