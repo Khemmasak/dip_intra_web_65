@@ -231,7 +231,7 @@ $getMaxCarBook = callAPI('getMaxCarBook');
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
                     <h4 class="ml-2 mb-0 h2-color">* หมายเลขโทรศัพท์</h4>
-                    <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล หมายเลขโทรศัพท์')" oninput="this.setCustomValidity('')" id="TEL" name="TEL" class="form-control" type="text" placeholder="XXX-XXX-XXXX" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="10">
+                    <input required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล หมายเลขโทรศัพท์')" oninput="this.setCustomValidity('')" id="TEL" name="TEL" class="form-control" type="text" placeholder="XXX-XXX-XXXX" maxlength="">
                 </div>
                 <div class=" col-lg-6 col-md-6 col-sm-6 col-12 ">
                     <h4 class="ml-2 mb-0 h2-color">* ผู้ผ่านความเห็นชอบ</h4>
