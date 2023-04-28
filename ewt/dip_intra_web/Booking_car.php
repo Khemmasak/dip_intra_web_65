@@ -82,8 +82,8 @@ $data_session = array(
 					);
 $insertUsrMain = callAPI('insertUsrMain', $data_session);
 
-// echo '<pre>';
-// print_r($getCarList);
+// echo '<br><br><br><pre>';
+// print_r($insertUsrMain);
 // echo '</pre>';
 
 
@@ -118,6 +118,7 @@ function get_TH_Date2($date){
 	$some_txt_date = $txt_date["j_date"]." ".$txt_date["s_t_month"]." ".$txt_date["year"];
 	return $some_txt_date;
 }
+
 ?>
 
 <!-- แถบค้นหา -->
@@ -256,7 +257,7 @@ function get_TH_Date2($date){
 							ทะเบียน : <?php echo $value['CAR_REGISTER'];?>
                         </div>
                         <div class="post-item-date line-height-20px">
-							ระยะไมค์ : <?php echo $value['CAR_MILEAGE'];?> กิโลเมตร
+							ระยะไมค์ : <?php echo number_format($value['CAR_MILEAGE'], 0, '', ',');?> กิโลเมตร
                         </div>
                         <div class="post-item-date line-height-20px">
 							ผู้ดูแล : สำนักเลขานุการกรม
