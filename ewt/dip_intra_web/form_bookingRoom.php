@@ -236,9 +236,9 @@ $getMeetingToolAsset = callAPI('getMeetingToolAsset',$data_request_room_id);//�
 					<div class="col-lg-2 col-md-2 col-sm-4 col-4 m-2 text-center">
 						<h4 class="h2-color ml-2">จำนวนที่มี</h4>
 					</div>
-					<div class="col-lg-2 col-md-2 col-sm-4 col-4 m-2 text-center">
+					<!--<div class="col-lg-2 col-md-2 col-sm-4 col-4 m-2 text-center">
 						<h4 class="h2-color ml-2">จำนวณคงเหลือ</h4>
-					</div>
+					</div>-->
 					<div class="col-lg-2 col-md-2 col-sm-4 col-4 m-2 text-center">
 						<h4 class="h2-color ml-2">จำนวณที่ต้องการ</h4>
 					</div>
@@ -255,9 +255,9 @@ $getMeetingToolAsset = callAPI('getMeetingToolAsset',$data_request_room_id);//�
 					<div class="col-lg-2 col-md-2 col-sm-4 col-4 m-2" align="center">
 						<?php echo $value['QUANTITY'];?>
 					</div>
-					<div class="col-lg-2 col-md-2 col-sm-4 col-4 m-2" align="center">
+					<!--<div class="col-lg-2 col-md-2 col-sm-4 col-4 m-2" align="center">
 						<input type="text" disabled class="form-control text-center" name="BALANCE" id="BALANCE_<?php echo $key;?>" value="">
-					</div>
+					</div>-->
 					<div class="col-lg-2 col-md-2 col-sm-4 col-4  m-2" align="center"><!--TOOLAMOUNT_<?php echo $key;?>-->
 						<input disabled class="form-control text-center" type="number" placeholder="0" id="TOOLAMOUNT_<?php echo $key;?>" name="TOOLAMOUNT[<?php echo $key;?>]" min="1" onChange="check_meet(<?php echo $_GET['meeting_id'];?>,'status');">
 					</div>
