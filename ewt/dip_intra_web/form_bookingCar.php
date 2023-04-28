@@ -166,6 +166,7 @@ $getMaxCarBook = callAPI('getMaxCarBook');
                 <div class="col-sm-3 my-1">
                     <select required oninvalid="this.setCustomValidity('กรุณากรอกข้อมูล เลือกพื้นที่')" oninput="this.setCustomValidity('')" id="PROVINCE_CODE" name="PROVINCE_CODE[]" class="form-control">
                         <option value="" >เลือกพื้นที่</option>
+                        <option value="99" >และจังหวัดใกล้เคียง</option>
                         <?php 
 						foreach ($getProvince['Data'] as $key => $value) {
 							echo "<option ".($key == 10 ? "":"")." value=" . $key . ">" . $value . "</option>";
