@@ -106,28 +106,28 @@ $getMaxCarBook = callAPI('getMaxCarBook');
     </div>
     <div class="p-2 StepBox-BE4-car  p-3">
         <h3 class="mt-2 mb-0"><i class="fa fa-user-circle"></i></h3>
-        <h4 class="mt-0">2. ผ่านความเห็นชอบ</h4>
+        <h4 class="mt-0 text_tag">2. ผ่านความเห็นชอบ</h4>
         <p class="white-text font-small">เลือกผู้บังคับการในการเห็นชอบ
             ขอเพื่อใช้พาหนะ</p>
         <div class="arrow-right-BE4-car2"></div>
     </div>
     <div class="p-2 StepBox-882-car  p-3">
         <h3 class="mt-2 mb-0"><i class="fa fa-check-circle"></i></h3>
-        <h4 class="mt-0">3. การอนุมัติจ่ายรถ </h4>
+        <h4 class="mt-0 text_tag">3. การอนุมัติจ่ายรถ </h4>
         <p class="white-text font-small">คำขอที่ผ่านความเห็นชอบ
             จะถูกส่งไปยังผู้อนุมัติ</p>
         <div class="arrow-right-822-car3"></div>
     </div>
     <div class="p-2 StepBox-BE4-car  p-3">
         <h3 class="mt-2 mb-0"><i class="fa fa-car"></i></h3>
-        <h4 class="mt-0">4. การจัดคิวรถ</h4>
+        <h4 class="mt-0 text_tag">4. การจัดคิวรถ</h4>
         <p class="white-text font-small">เมื่อคำขอได้รับอนุมัติ
             ผู้จัดคิวจะจัดสรรพาหนะให้ผู้จอง</p>
         <div class="arrow-right-BE4-car4"></div>
     </div> 
     <div class="p-2 StepBox-882-car  p-3">
         <h3 class="mt-2 mb-0"><i class="fa fa-map"></i></h3>
-        <h4 class="mt-0">5. ออกเดินทาง </h4>
+        <h4 class="mt-0 text_tag">5. ออกเดินทาง </h4>
         <p class="white-text font-small">ผู้จองจะได้รับกยานพาหนะสำหรับการเดินทาง
             กรณีที่ไม่มียานพาหนะว่าง คุณสามารถใช้เอกสาร
             จากระบบ เพื่อแนบในการเบิกค่ายานพาหนะได้</p>

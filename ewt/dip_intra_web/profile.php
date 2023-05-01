@@ -112,7 +112,10 @@ $a_data_pro   = db::getfetch($_sql_pro);
         </div>
       </div>
 
-      <div>
+      <div class="row">
+        <div class="col-xl-12">
+
+        </div>
         <!-- ส่วนของข้อมูลผู้ใช้ -->
         <h2 class="h2-color pt-4">
           <i class="fa fa-user" aria-hidden="true"></i>

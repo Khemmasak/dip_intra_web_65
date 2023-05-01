@@ -3355,7 +3355,7 @@ ul.dis-flex li {
   .pic-user {
     width: 30px;
     height: 26px;
-    margin-left: 10px;
+    margin-left: -8px;
   }
 
   .text_new {
@@ -3433,6 +3433,7 @@ ul.dis-flex li {
   .pic-user {
     width: 36px;
     height: 34px;
+    margin-left: -11px;
   }
 
   .width li {

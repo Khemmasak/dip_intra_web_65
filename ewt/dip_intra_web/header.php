@@ -64,7 +64,7 @@ $result = dbdpis::getFetch($sql_profile);
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div class="navbar-collapse shadow-sm collapse show p-2" id="navbarNavDropdown">
         <?php echo $menu_view3; ?>
         <li class="navbar"><a href="search.php" alt="ค้นหาข่าวสาร" title="ค้นหาข่าวสาร"><i class="fas fa-search"></i> </a></li>
         <ul class="navbar-nav">
