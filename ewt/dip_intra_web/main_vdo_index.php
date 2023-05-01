@@ -9,6 +9,14 @@ $vdo_list = vdo::getVdoList(null, "1", null)["dataAll"];
 <!-- ******************************************* Open Zone Content Demo ********************************************* -->
 
 <!---------------------- Zone วิดีโอแนะนำ  ------------------------------>
+<style>
+    @media (min-width: 320px) {
+        .box_vdo{
+            height: auto;
+        }
+     }
+
+</style>
 <div class="container mt-2 mb-1">
     <div class="row">
         <div class="col-xl-10 col-lg-10 col-md-8 col-sm-12 col-12">
@@ -28,7 +36,7 @@ $vdo_list = vdo::getVdoList(null, "1", null)["dataAll"];
     <div class="row">
         <?php foreach ($vdo_list as $key => $value) { ?>
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                <div class="shadow-sm  mt-2 mb-2 bg-whtie rounded" style="height: 400px;">
+                <div class="shadow-sm  mt-2 mb-2 bg-whtie rounded box_vdo">
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="embed-responsive embed-responsive-16by9">
@@ -58,9 +66,7 @@ $vdo_list = vdo::getVdoList(null, "1", null)["dataAll"];
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                       
-                    </div>
+                    <hr class="hr_news">
                 </div>
             </div>
         <?php } ?>

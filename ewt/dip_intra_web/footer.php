@@ -14,12 +14,16 @@
                     <div class="col-12">
                         <div class="font25px mb-3"> ข้อมูลติดต่อ </div>
                     </div>
-                    <div class="col-6 col-md">
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
                         <ul class="list-unstyled text-small">
                             <li> <?php echo $template_management['site_address']; ?> </li>
                         </ul>
                     </div>
-                    <div class="col-6 col-md">
+                </div>
+                <div class="row">
+                    <div class="col-12  col-md-6">
                         <ul class="list-unstyled text-small">
                             <li> โทรศัพท์ : <a class="text-muted" href="#"><?php echo $template_management['site_tel']; ?></a></li>
                             <li> โทรสาร : <a class="text-muted" href="#"><?php echo $template_management['site_fax']; ?></a></li>
@@ -28,7 +32,8 @@
                     </div>
                 </div>
             </div>
-
+        </div>
+        <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="col-12">
                     <div class="font25px mb-3"> แผนผังเว็บไซต์ </div>
@@ -44,14 +49,26 @@
 <div class="container-fluid">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12 col-12 txt-color-purple">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-6 txt-color-purple">
                 <img src="images/logo_intranet.png" title="images/logo_intranet.png" alt="images/logo_intranet.png" class="max-width-logo-footer dis-inline mr-4">
-                ลิขสิทธิ์ DIP Portal
             </div>
+            <div class="col-6">
+                    <p class="txt-color-purple m-0 mt-3">ลิขสิทธิ์ DIP Portal</p>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-12 txt-color-purple">
                 <div class="float-left mt-3 mr-5" id="list_count_user"> จำนวนผู้เข้าชม : <?php echo visitor::getVisitor(); ?> </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-12 txt-color-purple">
                 <div class="float-left mt-3"> จำนวน Online : <?php echo visitor::getVisitorOnline()["count"]; ?> </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+

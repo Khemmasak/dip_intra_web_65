@@ -105,11 +105,10 @@ $permission = json_decode($response, true);
                                     </div>
                                 <?php } ?>
                             <?php } ?>
-                        </div>
+                         </div>
+                         <hr class="hr_news">
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
