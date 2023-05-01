@@ -498,6 +498,18 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
     .min-h-phonebook{
         min-height: 135px;
     }
+
+
+    @media (min-width: 320px) { 
+        .row_sm{
+            display: none;
+        }
+     }
+     @media (min-width: 768px) { 
+        .row_sm{
+            display: flex;
+        }
+     }
 </style>
 
 <!-- Style CSS Template 3 -->
@@ -556,9 +568,9 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
 
         <br>
 
-        <div class="d-flex flex-row">
+        <div class="flex-row row_sm">
             <?php foreach($datatype as $key => $value){ ?>
-            <div class="p-2">
+            <div class="p-2 d-flex">
                 <img class="symbolgrov" src="<?php echo SSO_PATH ."attach/w26/".$value["FILE_SAVE_NAME"] ?>" alt="img"><span class="ml-1"><?php echo $value["PER_TYPE_NAME"];?></span>
             </div>
             <?php }?>
@@ -589,8 +601,8 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
                             <div class="row">
                                 <!-- รูปภาพ -->
                                 <div class="col-lg-3 col-md-3 col-sm-3 col-12">
-                                    <!-- <img class="mt-1 ml-1 img-fluid border-ra-15px" src="images/profile.jpg" alt="img"> -->
-                                    <img class="mt-1 ml-1 img-fluid border-ra-15px" style="width: 125px; height: 125px;" src="<?php echo !empty($value["USR_PICTURE"]) ? SSO_PATH ."profile/" . $value["USR_PICTURE"] : "images/user_profile_empty.png"; ?>" alt="img">
+                                    <!-- <img class="mt-1 ml-1 img-fluid border-ra-15px" src="images/profile.jpg" alt="img"> --> <!-- style="width: 100%; height: 125px;"-->
+                                    <img class="mt-1 ml-1 img-fluid border-ra-15px"  src="<?php echo !empty($value["USR_PICTURE"]) ? SSO_PATH ."profile/" . $value["USR_PICTURE"] : "images/user_profile_empty.png"; ?>" alt="img">
                                     <!-- <img class="mt-1 ml-1 img-fluid border-ra-15px" style="width: 132px; height: 85px;" src="../ewt/pic_upload/<?php echo $value["path_image"]; ?>" alt="<?php echo $value["path_image"]; ?>"> -->
 
                                 </div>

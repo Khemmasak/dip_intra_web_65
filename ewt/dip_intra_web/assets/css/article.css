@@ -702,13 +702,13 @@ img {
   list-style-type: none;
 }
 
-.pagination a{
-    display: inline-block;
-    padding: 6px 10px;
-    /* color: #222; */
-    font-size: 13px;
-    font-weight: 600;
-/*    color: #FFFFFF;*/
+.pagination a {
+  display: inline-block;
+  padding: 4px 3px;
+  /* color: #222; */
+  font-size: 13px;
+  font-weight: 600;
+  /* color: #FFFFFF; */
 }
 
 
