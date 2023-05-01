@@ -504,10 +504,21 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
         .row_sm{
             display: none;
         }
+        .mrgin_from{
+            margin-top: 19%;
+        }
      }
      @media (min-width: 768px) { 
         .row_sm{
             display: flex;
+        }
+        .mrgin_from{
+            margin-top: 2%;
+        }
+     }
+     @media (min-width: 1024px) { 
+        .mrgin_from{
+            margin-top: 1%;
         }
      }
 </style>
@@ -524,7 +535,7 @@ $table_join .= " LEFT JOIN M_POSITION_MANAGE g ON (a.PER_POS_MANAGE_ID = g.POS_A
 </div>
 
 <!-- News index page -->
-<div class="shadow-sm container-fluid Knowledge-bg-head mt-5">
+<div class="shadow-sm container-fluid Knowledge-bg-head  mrgin_from">
     <div class="container pb-3 ">
 
         <!-- Modal เปล่า -->
