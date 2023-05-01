@@ -12,8 +12,20 @@
     color: green;
 }
 
+@media (min-width: 320px) { 
+       .text_tag{
+		font-size: 13px;
+    		line-height: inherit;
+	  }
+	}
 
-
+	@media (min-width: 1440px) { 
+       .text_tag{
+		font-size: 25px;
+    		line-height: inherit;
+	  }
+	}
+ 
 .form-control{
     border: 1px solid #981c9d !important;
     border-radius: 5px !important;
@@ -88,7 +100,7 @@ $getMaxCarBook = callAPI('getMaxCarBook');
     <div class="p-2 StepBox-882-car p-3 ">
 
         <h3 class="mt-2 mb-0"><i class="fa fa-desktop"></i></h3>
-        <h4 class="mt-0">1. กรอกรายละเอียด</h4>
+        <h4 class="mt-0 text_tag">1. กรอกรายละเอียด</h4>
         <p class="white-text font-small">ให้ผู้จองกรอกรายละเอียดต่างๆ</p>
         <div class="arrow-right-822-car1"></div>
     </div>

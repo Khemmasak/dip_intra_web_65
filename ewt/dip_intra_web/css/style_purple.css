@@ -3841,17 +3841,70 @@ h6 {
 
 
 /* *******Box car******** */
+
+@media (min-width: 768px) { 
+  .StepBox-882-car {
+    width: 20%;
+    height: 209px;
+    background-color: #82288c;
+    color: #fff;
+    text-align: center;
+  }
+  .StepBox-BE4-car {
+    width: 20%;
+    height: 209px;
+    background-color: #BE4EC3;
+    color: #fff;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1024px) { 
+  .StepBox-882-car {
+    width: 20%;
+    height: 189px;
+    background-color: #82288c;
+    color: #fff;
+    text-align: center;
+  }
+  .StepBox-BE4-car {
+    width: 20%;
+    height: 189px;
+    background-color: #BE4EC3;
+    color: #fff;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1024px) { 
+  .StepBox-882-car {
+    width: 20%;
+    height: 189px;
+    background-color: #82288c;
+    color: #fff;
+    text-align: center;
+  }
+  .StepBox-BE4-car {
+    width: 20%;
+    height: 189px;
+    background-color: #BE4EC3;
+    color: #fff;
+    text-align: center;
+  }
+}
+
+
+
 .StepBox-882-car {
   width: 20%;
-  height: 180px;
+  height: 450px;
   background-color: #82288c;
   color: #fff;
   text-align: center;
 }
-
 .StepBox-BE4-car {
   width: 20%;
-  height: 180px;
+  height: 450px;
   background-color: #BE4EC3;
   color: #fff;
   text-align: center;
