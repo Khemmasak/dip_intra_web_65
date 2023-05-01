@@ -15,20 +15,19 @@ a{
     background-color: transparent;
 }
 .login-dark form {
-  max-width:300px;
+  max-width: 317px;
   width:100%;
   background-color:#ffffff; /* #1e2833 */
-  padding:40px;
+  padding: 6px;
   border-radius:10px;
   transform:translate(-50%, -50%);
   position:absolute;
-  top:50%;
-  left:50%;
+  top: 45%;
+  left: 52%;
   color:#FFF;
   font-weight: 600;
   box-shadow:0px 1px 4px rgba(0,0,0,0.2);
 }   
-
 
 @media (min-width: 768px) { 
   .login-dark form {
