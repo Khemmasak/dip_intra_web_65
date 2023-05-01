@@ -31,12 +31,13 @@
   .icon_eye{
     position: absolute;
     top: 59%;
-    left: 75%;
+    left: 82%;
+    font-size: 30px;
   }
   @media (min-width: 768px) { 
     .icon_eye{
-    top: 62%;
-    left: 80%;
+      top: 59%;
+      left: 87%;
   }
 }
 </style>
