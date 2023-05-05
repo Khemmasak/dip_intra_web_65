@@ -149,7 +149,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                     </div>
                     <div class="col-xl-3 col-md-3">
                       <div class="form-group">
-                        <label for="nickname" class="label-form"> ชื่อเล่น <span class="txt-red"></span> </label>
+                        <label for="nickname" class="label-form"> ชื่อเล่นน <span class="txt-red"></span> </label>
                         <input type="text" class="form-control" id="nickname_thai" name="nickname_thai" placeholder="ชื่อเล่น" value="<?php echo $result['USR_NICKNAME']; ?>"></input>
                       </div>
                     </div>
