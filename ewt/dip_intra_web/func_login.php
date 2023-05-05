@@ -166,6 +166,7 @@ switch ($proc) {
 					curl_setopt_array(
 						$curl,
 						array(
+							// CURLOPT_URL => "http://203.151.166.133/DIP_SSO/api/public/Login",
 							CURLOPT_URL => "https://portal.diprom.go.th/DIP_SSO/api/public/Login",
 							CURLOPT_RETURNTRANSFER => true,
 							CURLOPT_SSL_VERIFYPEER => false,
@@ -201,6 +202,7 @@ switch ($proc) {
 									$curl2,
 									array(
 										CURLOPT_URL => 'https://portal.diprom.go.th/DIP_SSO/api/public/Authen',
+										// CURLOPT_URL => 'http://203.151.166.133/DIP_SSO/api/public/Authen',
 										CURLOPT_RETURNTRANSFER => true,
 										CURLOPT_SSL_VERIFYPEER => false,
 										CURLOPT_ENCODING => '',
@@ -297,6 +299,7 @@ switch ($proc) {
 									$curl2,
 									array(
 										CURLOPT_URL => 'https://portal.diprom.go.th/DIP_SSO/api/public/Authen',
+										// CURLOPT_URL => 'http://203.151.166.133/DIP_SSO/api/public/Authen',
 										CURLOPT_RETURNTRANSFER => true,
 										CURLOPT_SSL_VERIFYPEER => false,
 										CURLOPT_ENCODING => '',
