@@ -207,7 +207,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                       $res = dbdpis::getFetchAll($s_per);
                       foreach($res as $value){
                       ?>
-                      <option value="<?php echo $value["PREFIX_EN"] ?>" <?php echo $result['USR_OPTION7'] == $value["PREFIX_EN"] ? 'selected' : ' '; ?>><?php echo $value["PREFIX_EN"] ?></option>
+                      <option value="<?php echo $value["PREFIX_EN"] ?>" <?php echo $result['USR_OPTION7'] == $value["PREFIX_EN"] ? 'selected' : ' '; ?>><?php echo $value["PREFIX_TH"]." (".$value["PREFIX_EN"] .")" ?></option>
                       <?php }?>
                       </select>
                     <!-- <input type="text" class="form-control" id="USR_OPTION7" name="USR_OPTION7" placeholder="คำนำหน้าภาษาอังกฤษ" value="<?php //echo $result["USR_OPTION7"]?>" ></input> -->
