@@ -112,17 +112,189 @@ $a_data_pro   = db::getfetch($_sql_pro);
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-xl-12">
-
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+              <!-- ส่วนของข้อมูลผู้ใช้ -->
+              <h2 class="h2-color pt-4">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <?php //var_dump("./ewtadmin/ewt/pic_upload/" . $user_ewt["path_image"]); 
+                ?>
+                ข้อมูลผู้ใช้งาน
+              </h2>
+          </div>
         </div>
-        <!-- ส่วนของข้อมูลผู้ใช้ -->
-        <h2 class="h2-color pt-4">
-          <i class="fa fa-user" aria-hidden="true"></i>
-          <?php //var_dump("./ewtadmin/ewt/pic_upload/" . $user_ewt["path_image"]); 
-          ?>
-          ข้อมูลผู้ใช้งาน
-        </h2>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-10">
+                <div class="row">
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="#" class="label-form">คำนำหน้า(ภาษาไทย)<span class="txt-red"></span> </label>
+                        <input type="text" class="form-control" id="#" name="#" placeholder="คำนำหน้า" value="#" disabled></input>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="name_thai" class="label-form"> ชื่อ(ภาษาไทย)<span class="txt-red"></span> </label>
+                        <input type="text" class="form-control" id="name_thai" name="name_thai" placeholder="ชื่อ(ภาษาไทย)" value="<?php echo $result['PER_NAME_TH']; ?>" disabled></input>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="surname_thai" class="label-form"> นามสกุล(ภาษาไทย)<span class="txt-red"></span> </label>
+                        <input type="text" class="form-control" id="surname_thai" name="surname_thai" placeholder="นามสกุล(ภาษาไทย)" value="<?php echo $result['PER_LASTNAME_TH']; ?>" disabled></input>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="nickname" class="label-form"> ชื่อเล่นน <span class="txt-red"></span> </label>
+                        <input type="text" class="form-control" id="nickname_thai" name="nickname_thai" placeholder="ชื่อเล่น" value="<?php echo $result['USR_NICKNAME']; ?>"></input>
+                      </div>
+                    </div>
+                 </div>
+                 <div class="row">
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="#" class="label-form">คำนำหน้า(ภาษาอังกฤษ)<span class="txt-red"></span> </label>
+                        <input type="text" class="form-control" id="#" name="#" placeholder="คำนำหน้าภาษาอังกฤษ" value="#" disabled></input>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="name_eng" class="label-form"> ชื่อ(ภาษาอังกฤษ)<span class="txt-red"></span> </label>
+                        <input type="text" class="form-control" id="name_eng" name="name_eng" placeholder="ชื่อ(ภาษาอังกฤษ)" value="<?php echo $result['USR_FNAME_EN']; ?>"></input>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="surname_eng" class="label-form"> นามสกุล(ภาษาอังกฤษ)<span class="txt-red"></span> </label>
+                        <input type="text" class="form-control" id="surname_eng" name="surname_eng" placeholder="นามสกุล(ภาษาอังกฤษ)" value="<?php echo $result['USR_LNAME_EN']; ?>"></input>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="surname_eng" class="label-form"> ตำแหน่งการบริหารงาน<span class="txt-red"></span> </label>
+                        <input type="text" class="form-control" id="pos_name" name="pos_name" placeholder="-" value="<?php echo $result['POS_ADMIN_NAME']; ?>" disabled></input>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="surname_eng" class="label-form"> ตำแหน่งในสายงาน<span class="txt-red"></span> </label>
+                        <input type="text" class="form-control" id="position_person" name="position_person" placeholder="-" value="<?php echo $result['POS_NAME']; ?>" disabled></input>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="level_name" class="label-form"> ระดับตำแหน่ง*<span class="txt-red"></span> </label>
+                        <input class="form-control" id="level_name" name="level_name" placeholder="-" value="<?php echo $result['POS_LEVEL_NAME']; ?>" disabled>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="afft_name" class="label-form"> สังกัด*<span class="txt-red"></span> </label>
+                        <input class="form-control" id="afft_name" name="afft_name" placeholder="-" value="<?php echo $result['DEP_1']; ?>" disabled>
+                      </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="name_org" class="label-form"> กลุ่มงาน<span class="txt-red"></span> </label>
+                        <input class="form-control" id="name_org" name="name_org" placeholder="-" value="<?php echo $result['DEP_2']; ?>" disabled>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="tel_in" class="label-form"> หมายเลขโทรศัพท์<span class="txt-red"></span> </label>
+                        <input class="form-control" id="tel_in" name="tel_in" list="Affiliation" value="<?php echo $result['USR_TEL']; ?>">
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="tel_convenient" class="label-form"> หมายเลขโทรสาร<span class="txt-red"></span> </label>
+                        <input type="tel" class="form-control" name="tel_convenient" id="tel_convenient" placeholder="-" value="<?php echo $result['USR_TEL_FAX']; ?>">
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="mobile" class="label-form">หมายเลขมือถือ<span class="txt-red"></span> </label>
+                        <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="-" value="<?php echo $result['USR_TEL_PHONE']; ?>">
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-md-3">
+                      <div class="form-group">
+                        <label for="email_person" class="label-form"> Email *<span class="txt-red"></span> </label>
+                        <input type="email" class="form-control" name="email_person" id="email_person" aria-describedby="emailHelp" value="<?php echo $result['USR_EMAIL']; ?>">
+                      </div>
+                  </div>
+                </div>
+                <div class="row"> 
+                  <div class="col-xl-3 col-md-3">
+                    <div class="form-group">
+                        <label for="line_id" class="label-form"> ไอดีไลน์ <span class="txt-red"></span> </label>
+                        <input type="tel" class="form-control" name="line_id" id="line_id" placeholder="ไม่ระบุ" value="<?php echo $result['USR_LINE_ID']; ?>">
+                    </div>
+                  </div>
+                  <div class="col-xl-9 col-md-9">
+                    <div class="form-group">
+                        <label for="officeaddress" class="label-form"> ที่อยู่ <span class="txt-red"></span> </label>
+                         <textarea class="form-control" name="officeaddress" id="officeaddress"><?php echo $result['USR_ADDRESS']; ?></textarea>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-2">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-12 p-2">
+                    <a class="btn shadow-sm border-ra-15px bg-color-purple w-100 white-text fontAw-position boxsize-menu p-0" href="private_floder.php" role="button">
+                      <img class="imgMenu-icon" src="images/folder1.png" alt="img">
+                      <p class="font-boxMenu white-text ">แฟ้มส่วนตัว</p>
+                    </a>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col-xl-12">
+
+
+              <?php
+				// CHECK ว่า เป็น ข้าราชการ, พนักงานราชการ, ลูกจ้างประจำ
+				$chk_per_type = "SELECT COUNT(*) AS C_CHK
+								FROM USR_MAIN A
+								LEFT JOIN M_PER_PROFILE B ON B.PER_IDCARD = A.USR_OPTION3
+								WHERE B.PER_TYPE IN (1,2,3) 
+								AND A.USR_USERNAME = '".$_SESSION['EWT_USERNAME']."' ";
+				$q = dbdpis::execute($chk_per_type);
+				$chk = dbdpis::Fetch($q);
+				$h_1 = "";
+				// echo $chk['C_CHK'];
+				if($chk['C_CHK'] == 0){
+					$h_1 = "hidden";
+				}
+			  ?>
+                  <!-- แคปชา -->
+                  <div class="col-12 text-center">
+                    <div class="mb-3 mt-3 form-check txt-center">
+                      <input type="checkbox" name="policy_check" id="policy_check" checked>
+                      <label class="form-check-label" for="policy_check">
+                        <a href="assets/download/policy.pdf" target="_blank">
+                          ยินยอมนโยบายการเก็บข้อมูลของกรมส่งเสริมอุตสาหกรรม </a>
+                      </label>
+                    </div>
+                    <div class="txt-center mb-5">
+                      <button type="submit" class="btn btn-success text-white btn-radius"> บันทึกการเปลี่ยนแปลงข้อมูล </button>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+  
+        
         <hr class="hr_news mt-0">
         <div class="row pb-5">
           <!-- แบ่งฝั่งข้อมูล -->
@@ -279,7 +451,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                   <p class="font-boxMenu white-text ">ขอหนังสือรับรอง</p>
                 </a>
               </div>
-              <div class="col-lg-6 col-md-12 col-sm-6 col-6 p-2">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-6 p-2">
                 <a class="btn shadow-sm border-ra-15px bg-color-purple w-100 white-text fontAw-position boxsize-menu p-0" href="private_floder.php" role="button">
                   <img class="imgMenu-icon" src="images/folder1.png" alt="img">
                   <p class="font-boxMenu white-text ">แฟ้มส่วนตัว</p>

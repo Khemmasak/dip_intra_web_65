@@ -104,24 +104,38 @@ $final_money = $EncryptSal->decode($PAYROLL['FINAL_MONEY']);
 </div> -->
 
 <style>
-    .font-body {
+    /* .font-body {
         font-size: 11px;
-    }
+    } */
 
     td {
         padding: 1px;
 		font-size: 11px !important;
     }
+    @page {
+     size: auto;
+     margin: 0px;
+     width: 56%;
+   }
+   
+   /* @page :left {
+     margin-top: 4in;
+   } */
+   /* @page :right {
+     size: 11in;
+     margin-top: 4in;
+   } */
+
 </style>
 
 <!-- Open News -->
 <div class="contaier-fluid font-body">
     <div class="container">
         <div class="row">
-
+            <div class="col-xl-12">
             <main>
                 <br><br>
-                <table style="width:800px;">
+                <table style="width:1200px;">
                     <tr>
                         <td style=""><img src="images/DIP_100.png" style="width:48px;"></td>
                         <td><strong><span style="font-size:150%">กรมส่งเสริมอุตสาหกรรม</span></strong></td>
@@ -129,7 +143,7 @@ $final_money = $EncryptSal->decode($PAYROLL['FINAL_MONEY']);
                     </tr>
                 </table>
                 <br>
-                <table style="width:800px;" border="0">
+                <table style="width:1200px;" border="0">
                     <tr>
                         <td style="width:110px;">เลขตำแหน่ง 0000339</td>
                         <td style="width:24%">ชื่อ-สกุล <?php echo $PAYROLL['PER_PREFIX'] . $PAYROLL['PER_FNAME'] . " " . $PAYROLL['PER_LNAME']; ?></td>
@@ -144,7 +158,7 @@ $final_money = $EncryptSal->decode($PAYROLL['FINAL_MONEY']);
                 </table>
 
                 <br>
-                <table style="width:800px; min-height:200px;" border="0">
+                <table style="width:1200px; min-height:200px;" border="0">
                     <tr>
                         <td rowspan="2" style="vertical-align:top;">
 
@@ -256,9 +270,12 @@ $final_money = $EncryptSal->decode($PAYROLL['FINAL_MONEY']);
                     </tr>
                 </table>
             </main>
-
-
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 text-right">
+                 <button type="button" class="btn Gradient-Color text-white" name="button" id="print" onclick="window.print();"> <!-- <i class="fas fa-print"></i> Font Awesome fontawesome.com --> PRINT</button>
+            </div>
         </div>
     </div>
 </div>
