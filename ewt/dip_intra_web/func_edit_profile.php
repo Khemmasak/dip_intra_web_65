@@ -95,7 +95,7 @@ if ($_POST["Flag"] == "EditPro") {
 
         $db_up2 = dbdpis::db_update('M_PER_PROFILE', $m_data, array('PER_ID' => $a_data['PER_ID']));
         
-        if ($db_up == true && $db_up2 == true) {
+        if ($db_up === true && $db_up2 === true) {
                 $message = "แก้ไขข้อมูลส่วนตัวสำเร็จ";
                 $status = "success";
         } else {

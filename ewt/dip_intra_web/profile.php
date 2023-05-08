@@ -237,6 +237,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                       ?>
                       <option value="<?php echo $value["POS_ADMIN_ID"] ?>" <?php echo $result['PER_POS_MANAGE_ID'] == $value["POS_ADMIN_ID"] ? 'selected' : ' '; ?>><?php echo $value["POS_ADMIN_NAME"] ?></option>
                       <?php }?>
+                      <option value="">ไม่มีตำแหน่งทางการบริหาร</option>
                       </select>
                     <!-- <input type="text" class="form-control" id="pos_name" name="pos_name" placeholder="-" value="<?php // echo $result['POS_ADMIN_NAME']; ?>" ></input> -->
                   </div>
