@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 dbdpis::ConnectDB(SSO_DB_NAME, SSO_DB_TYPE, SSO_ROOT_HOST, SSO_ROOT_USER, SSO_ROOT_PASSWORD, SSO_DB_NAME, SSO_CHAR_SET);
 
 $s_data = array();
+$m_data = array();
 if ($_POST["Flag"] == "EditPro") {
 
         $path_image = $_FILES["path_image"]['name'];
@@ -61,6 +62,8 @@ if ($_POST["Flag"] == "EditPro") {
         }
 
         $s_data['USR_NICKNAME'] = trim($a_data['nickname_thai']);
+        $s_data['USR_FNAME'] = trim($a_data['name_thai']);
+        $s_data['USR_LNAME'] = trim($a_data['surname_thai']);
         $s_data['USR_FNAME_EN'] = trim($a_data['name_eng']);
         $s_data['USR_LNAME_EN'] = trim($a_data['surname_eng']);
         $s_data['USR_EMAIL'] = trim($a_data['email_person']);
@@ -69,10 +72,30 @@ if ($_POST["Flag"] == "EditPro") {
         $s_data['USR_TEL_PHONE'] = trim($a_data['mobile']);
         $s_data['USR_LINE_ID'] = trim($a_data['line_id']);
         $s_data['USR_ADDRESS'] = trim($a_data['officeaddress']);
+        $s_data['USR_PREFIX'] = trim($a_data['USR_PREFIX']);
+        $s_data['POS_ID'] = trim($a_data['position_person']);
+        $s_data['USR_OPTION7'] = trim($a_data['USR_OPTION7']);
+        $s_data['DEP_ID'] = trim($a_data['afft_name']);
+        $s_data['USR_OPTION5'] = trim($a_data['name_org']);
+        $s_data['USR_OPTION4'] = trim($a_data['PER_TYPE']);
+        $s_data['USR_OPTION2'] = trim($a_data['level_name']);
+        $s_data['USR_OPTION1'] = trim($a_data['pos_name']);
 
         $db_up = dbdpis::db_update('USR_MAIN', $s_data, array('USR_ID' => $a_data['USR_ID']));
+
+        $m_date['PREFIX_NAME'] = trim($a_data['USR_PREFIX']);
+        $m_date['PER_NAME_TH'] = trim($a_data['name_thai']);
+        $m_date['PER_LASTNAME_TH'] = trim($a_data['surname_thai']);
+        $m_date['DEP_LV1_ID'] = trim($a_data['afft_name']);
+        $m_date['DEP_LV2_ID'] = trim($a_data['name_org']);
+        $m_date['PER_POS_ID'] = trim($a_data['position_person']);
+        $m_date['PER_POS_MANAGE_ID'] = trim($a_data['pos_name']);
+        $m_date['PER_POSITION_LVL'] = trim($a_data['level_name']);
+        $m_date['PER_TYPE'] = trim($a_data['PER_TYPE']);
+
+        $db_up2 = dbdpis::db_update('M_PER_PROFILE', $m_data, array('PER_ID' => $a_data['PER_ID']));
         
-        if ($db_up) {
+        if ($db_up == true && $db_up2 == true) {
                 $message = "แก้ไขข้อมูลส่วนตัวสำเร็จ";
                 $status = "success";
         } else {
