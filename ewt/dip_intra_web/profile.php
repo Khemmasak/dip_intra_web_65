@@ -114,7 +114,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
 
       <div class="container">
         <div class="row">
-          <div class="col-xl-12">
+          <div class=" col-xl-12">
             <!-- ส่วนของข้อมูลผู้ใช้ -->
             <h2 class="h2-color pt-4">
               <i class="fa fa-user" aria-hidden="true"></i>
@@ -127,7 +127,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
 
         <div class="container">
           <div class="row">
-            <div class="col-xl-10">
+            <div class="col-xl-10 col-md-10">
               <div class="row">
               <input type="hidden" name="Flag" id="Flag" value="EditPro">
               <input type="hidden" name="USR_ID" id="USR_ID" value="<?php echo $result['USR_ID'] ?>">
@@ -367,7 +367,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                   $h_1 = "hidden";
                 }
                 ?>
-                <div <?php echo $h_1; ?> class="col-lg-12 col-md-12 col-sm-12 col-12 p-2">
+                <div <?php echo $h_1; ?> class=" col-lg-12 col-md-12 col-sm-12 col-12 p-2">
                   <a class="btn shadow-sm border-ra-15px bg-color-purple w-100 white-text fontAw-position boxsize-menu p-0" href="finance_information.php" role="button">
                     <img class="imgMenu-icon" src="images/Edit2playcopy2.png" alt="img">
                     <p class="font-boxMenu white-text ">ข้อมูลการเงิน</p>
