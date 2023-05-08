@@ -88,8 +88,8 @@ $permission = json_decode($response, true);
                                             <a href="#" style="pointer-events: none;filter: grayscale(80%);opacity: 0.5;">
                                                 <img src="<?php echo SSO_PATH . "attach/w3/" . $list['FILE_SAVENAME']; ?>" alt=" <?php echo $list['SYSTEMS_NAME']; ?>" title=" <?php echo $list['SYSTEMS_NAME']; ?>" class="w-50 text-right">
                                         </div>
-                                        <div class="text-center">
-                                            <span class="txt-system"> <?php echo $list['SYSTEMS_NAME']; ?><br>(ปิดปรับปรุงระบบ)</span>
+                                        <div class="text-center mt-2 mb-2">
+                                            <span class="txt-system" style="font-size: 14px;"> <?php echo $list['SYSTEMS_NAME']; ?><br>(ปิดปรับปรุงระบบ)</span>
                                         </div> </a>
                                     </div>
                                 <?php } else { ?>
@@ -99,8 +99,8 @@ $permission = json_decode($response, true);
                                             <a href="<?php echo $list['CALL_BACK']; ?>?bfs=<?php echo $permission['data']['user_detail']['USER_TOKEN'] ?>" target="_blank">
                                                 <img src="<?php echo SSO_PATH . "attach/w3/" . $list['FILE_SAVENAME']; ?>" alt=" <?php echo $list['SYSTEMS_NAME']; ?>" title=" <?php echo $list['SYSTEMS_NAME']; ?>" class="w-50 text-right">
                                         </div>
-                                        <div class="text-center">
-                                            <span class="txt-system"> <?php echo $list['SYSTEMS_NAME']; ?></span>
+                                        <div class="text-center mt-2 mb-2">
+                                            <span class="txt-system" style="font-size: 14px;"> <?php echo $list['SYSTEMS_NAME']; ?></span>
                                         </div> </a>
                                     </div>
                                 <?php } ?>
