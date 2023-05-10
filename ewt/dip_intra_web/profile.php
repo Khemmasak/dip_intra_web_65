@@ -141,7 +141,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 <div class="col-xl-3 col-md-3">
                 <div class="form-group">
                       <label for="PER_TYPE" class="label-form">ประเภทบุคลากร<span class="txt-red"></span></label>
-                      <select class="form-control" name="PER_TYPE" id="PER_TYPE" required>
+                      <select class="form-control" name="PER_TYPE" id="PER_TYPE"readonly>
                       <option value="" disabled selected>โปรดระบุประเภทบุคลากร</option>
                       <?php 
                       $s_per ="SELECT * FROM M_PER_TYPE ";
@@ -247,7 +247,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 <div class="col-xl-3 col-md-3">
                   <div class="form-group">
                     <label for="position_person" class="label-form"> ตำแหน่งในสายงาน<span class="txt-red"></span> </label>
-                    <select class="form-control" name="position_person" id="position_person" required disabled>
+                    <select class="form-control" name="position_person" id="position_person"  disabled>
                       <option value="" disabled  selected>โปรดระบุตำแหน่งในสายงาน</option>
                       <?php 
                       $s_per ="SELECT * FROM USR_POSITION ";
@@ -295,7 +295,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 </div>
                 <div class="col-xl-3 col-md-3">
                   <div class="form-group">
-                    <label for="name_org" class="label-form"> กลุ่มงาน<span class="txt-red"></span> </label>
+                    <label for="name_org" class="label-form"> กลุ่มงาน*<span class="txt-red"></span> </label>
                     <select class="form-control" name="name_org" id="name_org" required >
                       <option value="" disabled selected>โปรดระบุกลุ่มงาน</option>
                      </select>
