@@ -228,7 +228,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 <div class="col-xl-3 col-md-3">
                   <div class="form-group">
                     <label for="pos_name" class="label-form"> ตำแหน่งการบริหารงาน<span class="txt-red"></span> </label>
-                    <select class="form-control" name="pos_name" id="pos_name" required>
+                    <select class="form-control" name="pos_name" id="pos_name" >
                       <option value="" disabled selected>โปรดระบุตำแหน่งการบริหารงาน</option>
                       <?php 
                       $s_per ="SELECT * FROM M_POSITION_MANAGE ";
@@ -237,7 +237,6 @@ $a_data_pro   = db::getfetch($_sql_pro);
                       ?>
                       <option value="<?php echo $value["POS_ADMIN_ID"] ?>" <?php echo $result['PER_POS_MANAGE_ID'] == $value["POS_ADMIN_ID"] ? 'selected' : ' '; ?>><?php echo $value["POS_ADMIN_NAME"] ?></option>
                       <?php }?>
-                      <option value="">ไม่มีตำแหน่งทางการบริหาร</option>
                       </select>
                     <!-- <input type="text" class="form-control" id="pos_name" name="pos_name" placeholder="-" value="<?php // echo $result['POS_ADMIN_NAME']; ?>" ></input> -->
                   </div>
@@ -262,8 +261,8 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 </div>
                 <div class="col-xl-3 col-md-3">
                   <div class="form-group">
-                    <label for="level_name" class="label-form"> ระดับตำแหน่ง*<span class="txt-red"></span> </label>
-                    <select class="form-control" name="level_name" id="level_name" required>
+                    <label for="level_name" class="label-form"> ระดับตำแหน่ง<span class="txt-red"></span> </label>
+                    <select class="form-control" name="level_name" id="level_name" >
                       <option value="" disabled selected>โปรดระบุระดับตำแหน่ง</option>
                       <?php 
                       $s_per ="SELECT * FROM M_POSITION_LEVEL ";
@@ -279,10 +278,11 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 <div class="col-xl-3 col-md-3">
                   <div class="form-group">
                     <label for="afft_name" class="label-form"> สังกัด*<span class="txt-red"></span> </label>
-                    <select class="form-control" name="afft_name" id="afft_name" required>
+                    <select class="form-control" name="afft_name" id="afft_name" required  onchange="getDepartment()">
                       <option value="" disabled  selected>โปรดระบุสังกัด</option>
                       <?php 
-                      $s_per ="SELECT * FROM USR_DEPARTMENT";
+                      $s_per ="SELECT * FROM USR_DEPARTMENT WHERE DEPT_PARENT_ID = 0
+                      ORDER BY DEP_NAME";
                       $res = dbdpis::getFetchAll($s_per);
                       foreach($res as $value){
                       ?>
@@ -297,13 +297,6 @@ $a_data_pro   = db::getfetch($_sql_pro);
                     <label for="name_org" class="label-form"> กลุ่มงาน<span class="txt-red"></span> </label>
                     <select class="form-control" name="name_org" id="name_org" required>
                       <option value="" disabled selected>โปรดระบุกลุ่มงาน</option>
-                      <?php 
-                      $s_per ="SELECT * FROM USR_DEPARTMENT";
-                      $res = dbdpis::getFetchAll($s_per);
-                      foreach($res as $value){
-                      ?>
-                      <option value="<?php echo $value["DEP_ID"] ?>" <?php echo $result['DEP_LV2_ID'] == $value["DEP_ID"] ? 'selected' : ' '; ?>><?php echo $value["DEP_NAME"] ?></option>
-                      <?php }?>
                       </select>
                     <!-- <input class="form-control" id="name_org" name="name_org" placeholder="-" value="<?php //echo $result['DEP_2']; ?>" > -->
                   </div>
@@ -512,6 +505,40 @@ $a_data_pro   = db::getfetch($_sql_pro);
     });
   });
 </script>
+<script>
+function getDepartment() {
+  var afft_name = document.getElementById("afft_name").value;
+  var name_org = document.getElementById("name_org");
+  name_org.innerHTML = "<option value=''>โปรดรอสักครู่...</option>";
+  
+  if (afft_name == "") {
+    name_org.innerHTML = "<option value=''>โปรดระบุกลุ่มงาน</option>";
+    return;
+  } else {
+    var xmlhttp = new XMLHttpRequest();
+    
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var workGroups = JSON.parse(this.responseText);
+        var name_org_select = document.getElementById("name_org");
+        name_org_select.innerHTML = "";
+        for (var key in workGroups) {
+          if (workGroups.hasOwnProperty(key)) {
+            var option = document.createElement("option");
+            option.value = key;
+            option.text = workGroups[key];
+            name_org_select.add(option);
+          }
+        }
+      }
+    };
+    
+    xmlhttp.open("GET", "get_workgroups.php?afft_name=" + afft_name, true);
+    xmlhttp.send();
+  }
+}
+</script>
+
 
 <?php include('footer.php'); ?>
 <!-- Footer Website -->
