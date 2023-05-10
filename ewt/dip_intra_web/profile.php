@@ -147,6 +147,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                       $s_per ="SELECT * FROM M_PER_TYPE ";
                       $res = dbdpis::getFetchAll($s_per);
                       foreach($res as $value){
+                      
                       ?>
                       <option value="<?php echo $value["PER_TYPE_ID"] ?>" <?php echo $result['PER_TYPE'] == $value["PER_TYPE_ID"] ? 'selected' : ' '; ?>><?php echo $value["PER_TYPE_NAME"] ?></option>
                       <?php }?>
@@ -228,7 +229,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 <div class="col-xl-3 col-md-3">
                   <div class="form-group">
                     <label for="pos_name" class="label-form"> ตำแหน่งการบริหารงาน<span class="txt-red"></span> </label>
-                    <select class="form-control" name="pos_name" id="pos_name" >
+                    <select class="form-control" name="pos_name" id="pos_name" disabled>
                       <option value="" disabled selected>โปรดระบุตำแหน่งการบริหารงาน</option>
                       <?php 
                       $s_per ="SELECT * FROM M_POSITION_MANAGE ";
@@ -246,7 +247,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 <div class="col-xl-3 col-md-3">
                   <div class="form-group">
                     <label for="position_person" class="label-form"> ตำแหน่งในสายงาน<span class="txt-red"></span> </label>
-                    <select class="form-control" name="position_person" id="position_person" required>
+                    <select class="form-control" name="position_person" id="position_person" required disabled>
                       <option value="" disabled  selected>โปรดระบุตำแหน่งในสายงาน</option>
                       <?php 
                       $s_per ="SELECT * FROM USR_POSITION ";
@@ -259,10 +260,10 @@ $a_data_pro   = db::getfetch($_sql_pro);
                     <!-- <input type="text" class="form-control" id="position_person" name="position_person" placeholder="-" value="<?php echo $result['POS_NAME']; ?>" ></input> -->
                   </div>
                 </div>
-                <div class="col-xl-3 col-md-3">
+                <div class="col-xl-3 col-md-3" id="div_level_name">
                   <div class="form-group">
                     <label for="level_name" class="label-form"> ระดับตำแหน่ง<span class="txt-red"></span> </label>
-                    <select class="form-control" name="level_name" id="level_name" >
+                    <select class="form-control" name="level_name" id="level_name"  disabled>
                       <option value="" disabled selected>โปรดระบุระดับตำแหน่ง</option>
                       <?php 
                       $s_per ="SELECT * FROM M_POSITION_LEVEL ";
@@ -278,7 +279,7 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 <div class="col-xl-3 col-md-3">
                   <div class="form-group">
                     <label for="afft_name" class="label-form"> สังกัด*<span class="txt-red"></span> </label>
-                    <select class="form-control" name="afft_name" id="afft_name" required  onchange="getDepartment()">
+                    <select class="form-control" name="afft_name" id="afft_name" required   onchange="getDepartment(this.value, document.getElementById('name_org').value, document.getElementById('name_org').value);">
                       <option value="" disabled  selected>โปรดระบุสังกัด</option>
                       <?php 
                       $s_per ="SELECT * FROM USR_DEPARTMENT WHERE DEPT_PARENT_ID = 0
@@ -295,10 +296,9 @@ $a_data_pro   = db::getfetch($_sql_pro);
                 <div class="col-xl-3 col-md-3">
                   <div class="form-group">
                     <label for="name_org" class="label-form"> กลุ่มงาน<span class="txt-red"></span> </label>
-                    <select class="form-control" name="name_org" id="name_org" required>
+                    <select class="form-control" name="name_org" id="name_org" required >
                       <option value="" disabled selected>โปรดระบุกลุ่มงาน</option>
-                      </select>
-                    <!-- <input class="form-control" id="name_org" name="name_org" placeholder="-" value="<?php //echo $result['DEP_2']; ?>" > -->
+                     </select>
                   </div>
                 </div>
               </div>
@@ -412,7 +412,77 @@ $a_data_pro   = db::getfetch($_sql_pro);
     </div>
   </form>
 </div>
+<script>
+$(document).ready(function(){
+  var selectedVal = $('#PER_TYPE').val();
+  console.log("PER_TYPE selected value:", selectedVal);
+  
+  if (selectedVal == '1') {
+  $('#pos_name').prop('disabled', false);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', false);
+} else if (selectedVal == '2') {
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', true);
+}else if(selectedVal == '3'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', false);
+}else if(selectedVal == '4'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', true);
+}else if(selectedVal == '5'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', true);
+}else if(selectedVal == '6'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', true);
+}else if(selectedVal == '7'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', true);
+  $('#level_name').prop('disabled', true);
+}
 
+
+  $('#PER_TYPE').on('change', function() {
+    if (this.value == '1') {
+  $('#pos_name').prop('disabled', false);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', false);
+} else if (this.value == '2') {
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', true);
+}else if(this.value == '3'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', false);
+}else if(this.value == '4'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', true);
+}else if(this.value == '5'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', true);
+}else if(this.value == '6'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', false);
+  $('#level_name').prop('disabled', true);
+}else if(this.value == '7'){
+  $('#pos_name').prop('disabled', true);
+  $('#position_person').prop('disabled', true);
+  $('#level_name').prop('disabled', true);
+}
+  });
+  
+  $('#PER_TYPE').trigger('change');
+});
+</script>
 <script>
   $(document).ready(function() {
     $("#profile_form").on("submit", function(event) {
@@ -506,38 +576,37 @@ $a_data_pro   = db::getfetch($_sql_pro);
   });
 </script>
 <script>
-function getDepartment() {
-  var afft_name = document.getElementById("afft_name").value;
-  var name_org = document.getElementById("name_org");
-  name_org.innerHTML = "<option value=''>โปรดรอสักครู่...</option>";
-  
-  if (afft_name == "") {
-    name_org.innerHTML = "<option value=''>โปรดระบุกลุ่มงาน</option>";
-    return;
-  } else {
-    var xmlhttp = new XMLHttpRequest();
-    
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        var workGroups = JSON.parse(this.responseText);
-        var name_org_select = document.getElementById("name_org");
-        name_org_select.innerHTML = "";
-        for (var key in workGroups) {
-          if (workGroups.hasOwnProperty(key)) {
-            var option = document.createElement("option");
-            option.value = key;
-            option.text = workGroups[key];
-            name_org_select.add(option);
-          }
+  $(document).ready(function() {
+    var deptId = $('#afft_name').val();
+    var parentId = $('#name_org').val();
+    var prevVal = '';
+
+    // call the function and pass the value of $result['DEP_LV2_ID']
+    getDepartment(deptId, parentId, prevVal, '<?php echo $result["DEP_LV2_ID"] ?>');
+  });
+</script>
+
+<script>
+function getDepartment(deptId, parentId, prevVal, dept2) {
+    $.ajax({
+      url: 'get_workgroups.php',
+      dataType: 'json',
+      type: 'get',
+      data: {dept_id: deptId, parent_id: parentId, prev_val: prevVal},
+      success: function(data) {
+        var options = '<option value="" disabled selected>โปรดระบุกลุ่มงาน</option>';
+        for (var key in data) {
+          options += '<option value="' + key + '"  '+ (dept2 == key ? 'selected' : '') +'>' + data[key] + '</option>';
         }
+        $('#name_org').html(options);
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(textStatus, errorThrown);
       }
-    };
-    
-    xmlhttp.open("GET", "get_workgroups.php?afft_name=" + afft_name, true);
-    xmlhttp.send();
-  }
+    });
 }
 </script>
+
 
 
 <?php include('footer.php'); ?>
