@@ -30,15 +30,15 @@
   }
   .icon_eye{
     position: absolute;
-    top: 59%;
+    top: 57%;
     left: 82%;
     font-size: 30px;
   }
   @media (min-width: 768px) { 
-    .icon_eye{
-      top: 59%;
-      left: 87%;
-  }
+    .icon_eye {
+      top: 60%;
+      left: 80%;
+}
 }
 </style>
 <body>
